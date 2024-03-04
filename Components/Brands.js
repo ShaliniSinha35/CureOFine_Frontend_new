@@ -28,32 +28,7 @@ const Brands = () => {
     getBrand()
   },[])
 
-      // const brands = [
-      //   {
-      //     id: 0,
-      //     img: require("../assets/Brands/p1.png"),
-      //   },
-      //   {
-      //     id: 1,
-      //     img: require("../assets/Brands/p2.png"),
-      //   },
-      //   {
-      //     id: 2,
-      //     img: require("../assets/Brands/p3.png"),
-      //   },
-      //   {
-      //     id: 3,
-      //     img: require("../assets/Brands/p4.png"),
-      //   },
-      //   {
-      //     id: 4,
-      //     img: require("../assets/Brands/p5.png"),
-      //   },
-      //   {
-      //     id: 5,
-      //     img: require("../assets/Brands/p6.png"),
-      //   },
-      // ];
+      
 
   return (
     <>

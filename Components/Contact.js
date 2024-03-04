@@ -40,32 +40,7 @@ const Contact = () => {
     getInfo()
   },[])
 
-    // const contact = [
-    //     {
-    //       // #f08080
-    //       id: 1,
-    //       icon: <Feather name="phone-call" size={24} color="#f08080" />,
-    //       title: "7250446555",
-    //       subtitle: "Have a question?",
-    //       text: "Call Us Now",
-    //       url:"tel:7250446555"
-    //     },
-    //     {
-    //       id: 2,
-    //       icon: <Feather name="mail" size={24} color="#f08080" />,
-    //       title: "cureofine@gmail.com",
-    //       subtitle: " Need support?",
-    //       text: " Drop us an email",
-    //       url:"mailto:cureofine@gmail.com"
-    //     },
-    //     {
-    //       id: 3,
-    //       icon: <Ionicons name="alarm-outline" size={24} color="#f08080" />,
-    //       title: "Mon - Sat",
-    //       subtitle: "10.00AM - 06.00PM",
-    //       text: " We are open on",
-    //     },
-    //   ];
+    
   return (
     <>
          <ImageBackground

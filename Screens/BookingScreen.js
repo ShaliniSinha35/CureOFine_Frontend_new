@@ -45,8 +45,7 @@ const BookingScreen = ({ navigation }) => {
     const handleTimeChange = (event, selectedTime) => {
         setShowTimePicker(Platform.OS === 'ios');
         if (selectedTime) {
-            setTime(selectedTime);
-          
+            setTime(selectedTime);     
         }
     };
 
@@ -63,7 +62,6 @@ const BookingScreen = ({ navigation }) => {
 
 
     const onDateChange = (event, selectedDate) => {
-
         const currentDate = selectedDate || date;
         setShowDatePicker(Platform.OS === 'ios'); // Close the date picker on iOS
         setDate(currentDate);
@@ -157,7 +155,7 @@ const BookingScreen = ({ navigation }) => {
                                          console.log(err)
                                    }
                                 navigation.navigate("Home");
-                                Alert.alert("Payment Status:", statusResponse.data.status)
+                                // Alert.alert("Payment Status:", statusResponse.data.status)
                               } else if (statusResponse.data.status == "failure") {
                                 // Payment failed, navigate to the failure screen
                                 clearInterval(intervalId); // Stop the interval
@@ -178,7 +176,7 @@ const BookingScreen = ({ navigation }) => {
                                          console.log(err)
                                    }
                                 navigation.navigate("Home");
-                                Alert.alert("Payment Status:", statusResponse.data.status)
+                                // Alert.alert("Payment Status:", statusResponse.data.status)
                               }
                             } catch (error) {
                               console.error("Error checking payment status:", error);

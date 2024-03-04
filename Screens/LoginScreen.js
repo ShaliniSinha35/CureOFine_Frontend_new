@@ -66,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
     //   }, 3000)
     //   reset();
     // }
+    
 
      };
   }
@@ -193,11 +194,12 @@ const styles = StyleSheet.create({
   inputBoxCont: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
+    gap: 10,
     backgroundColor: "#D0D0D0",
-    paddingVertical: 5,
+    paddingVertical: 15,
     borderRadius: 5,
     marginTop: 40,
+    width:250
   },
   forgotCont: {
     marginTop: 15,

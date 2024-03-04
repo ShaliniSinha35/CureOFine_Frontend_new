@@ -25,7 +25,7 @@ import Header from "../Components/Header";
 import Services from "../Components/Services";
 import Products from "../Components/Products";
 import MostBooked from "../Components/MostBooked";
-import Categories from "../Components/Categories";
+// import Categories from "../Components/Categories";
 import Specialization from "../Components/Specialization";
 import Brands from "../Components/Brands";
 import Teams from "../Components/Teams";

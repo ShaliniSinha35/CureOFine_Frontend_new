@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
-import OTPInputView from "@twotalltotems/react-native-otp-input";
+
 import { TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from 'react-redux';
@@ -83,48 +83,7 @@ const OtpScreen = ({ navigation }) => {
 
 
 
-    // if (code.length == 6) {
-    //   try {
-    //     const response = await axios.post("https://cureofine.com/api/api/verify", {
-    //       otp: code,
-    //     });
-
-    //     console.log(response.data);
-
-
-    //     if (response.data.message === "OTP verification successful") {
-    //       console.log("OTP verification was successful");
-    //       console.log(response.data.number)
-    //       dispatch(setUser(response.data.number));
-    //       storeData(response.data.number)
-    //       // You can navigate to the next page here if the OTP is verified.
-    //       await navigation.navigate("Home");
-    //     } else {
-    //       console.log("OTP verification failed");
-    //       setErr("Incorrect OTP")
-    //       setTimeout(() => {
-    //         setErr("")
-    //       }, 3000)
-    //       // navigation.navigate("Login");
-    //       // Handle the case where the OTP verification failed, e.g., show an error message to the user.
-    //     }
-    //   }
-    //    catch (error) {
-    //     console.error("An error occurred:", error);
-    //     setErr("Invalid OTP")
-    //     setTimeout(() => {
-    //       setErr("")
-    //     }, 3000)
-
-    //   }
-    // }
-
-    // else {
-    //   setErr("Incorrect OTP");
-    //   setTimeout(() => {
-    //     setErr("")
-    //   }, 3000)
-    // }
+ 
 
 
 

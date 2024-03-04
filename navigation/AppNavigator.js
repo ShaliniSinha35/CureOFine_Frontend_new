@@ -17,7 +17,6 @@ import AboutScreen from "../Screens/AboutScreen";
 import EnquiryScreen from "../Screens/EnquiryScreen";
 import ServiceScreen from "../Screens/ServiceScreen";
 import LoginScreen from "../Screens/LoginScreen";
-import RegisterScreen from "../Screens/RegisterScreen";
 import Presence from "../Screens/Presence";
 import Terms from "../Screens/Terms";
 import Faq from "../Screens/Faq";
@@ -28,7 +27,7 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { createAppContainer } from "@react-navigation/native";
+
 import Refund from "../Screens/Refund";
 import { Foundation } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -48,7 +47,6 @@ import * as Sharing from "expo-sharing";
 import { Share } from "react-native";
 import ContactScreen from "../Screens/ContactScreen";
 import OtpScreen from "../Screens/OtpScreen";
-import PaymentScreen from "../Screens/PaymentScreen";
 import SingleTeamScreen from "../Screens/SingleTeamScreen";
 import HomeBanner from "../Screens/HomeBanner";
 import SurgeryInnerScreen from "../Screens/SurgeryInnerScreen";
@@ -65,13 +63,12 @@ import DoctorInnerScreen from "../Screens/DoctorInnerScreen";
 import HospitalInnerScreen from "../Screens/HospitalInnerScreen";
 import BookingScreen from "../Screens/BookingScreen";
 import EmiScreen from "../Screens/EmiScreen";
-import SignInScreen from "../Screens/SignInScreen";
 import { useSelector, useDispatch } from 'react-redux';
 import LogoutScreen from "../Screens/LogoutScreen";
 import { logoutUser } from "../redux/actions/userActions";
 import ProfileScreen from "../Screens/ProfileScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import PaymentStatusScreen from "../Screens/PaymentStatusScreen";
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -269,11 +266,7 @@ const AppNavigator = () => {
           component={LoginScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{ headerShown: false }}
-        />
+        
         <Stack.Screen
           name="OtpScreen"
           component={OtpScreen}
@@ -296,11 +289,11 @@ const AppNavigator = () => {
           component={SurgeryInfoScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Payment"
           component={PaymentScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="SingleTeam"
           component={SingleTeamScreen}
@@ -384,11 +377,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
 
-<Stack.Screen
+{/* <Stack.Screen
           name="PaymentStatusScreen"
           component={PaymentStatusScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     );
   }
