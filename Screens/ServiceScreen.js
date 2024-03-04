@@ -80,11 +80,11 @@ const ServiceScreen = ({ navigation }) => {
     },
   ];
 
-  // https://cureofine.com:8080/
+  // https://cureofine.com/api/api/
 
   const [service, setService] = useState(null)
   const getService = async () => {
-    const res = await axios.get("https://cureofine.com:8080/service");
+    const res = await axios.get("https://cureofine.com/api/api/service");
     const data = res.data;
 
     setService(data)

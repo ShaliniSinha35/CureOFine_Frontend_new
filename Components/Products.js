@@ -26,16 +26,16 @@ const Products = ({navigation}) => {
      const [product4 ,setProduct4] = useState([])
 
      const getTrendingProduct = async()=>{
-        const res1 = await axios.get("https://cureofine.com:8080/ivf")
+        const res1 = await axios.get("https://cureofine.com/api/api/ivf")
         setProduct1(res1.data[0])
-        const res2 = await axios.get("https://cureofine.com:8080/dental")
+        const res2 = await axios.get("https://cureofine.com/api/api/dental")
         setProduct2(res2.data[0])
 
-        const res3 = await axios.get("https://cureofine.com:8080/hairCosmetic")
+        const res3 = await axios.get("https://cureofine.com/api/api/hairCosmetic")
         setProduct3(res3.data[0])
 
 
-        const res4 = await axios.get("https://cureofine.com:8080/ayurveda")
+        const res4 = await axios.get("https://cureofine.com/api/api/ayurveda")
         setProduct4(res4.data[0])
         
 
@@ -43,7 +43,7 @@ const Products = ({navigation}) => {
 
 
      const getProduct = async () => {
-      const res = await axios.get("https://cureofine.com:8080/products");
+      const res = await axios.get("https://cureofine.com/api/api/products");
       const data = res.data;
       // console.log(data)
       setProduct(data)

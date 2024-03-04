@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation }) => {
 
     var phoneno = /^\d{10}$/;
     if ((data.phone.match(phoneno))) {
-      const res = await axios.post("https://cureofine.com:8080/generateOtp", {
+      const res = await axios.post("https://cureofine.com/api/api/generateOtp", {
       
           phone: data.phone
         })
@@ -98,47 +98,45 @@ const LoginScreen = ({ navigation }) => {
 
 
           <View>
-            <View style={styles.inputBoxCont}>
-              <FontAwesome5
-                name="phone-alt"
-                size={24}
-                color="gray"
-                style={{ marginLeft: 8 }}
-              />
+  <View style={styles.inputBoxCont}>
+    <FontAwesome5
+      name="phone-alt"
+      size={24} 
+      color="gray"
+      style={{ marginLeft: 8 }}
+    />
 
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    keyboardType="numeric"
-                    autoFocus={true}
-                    onBlur={onBlur}
-                    onChangeText={(value) => onChange(value)}
-                    value={value}
-                    style={{
-                      color: "gray",
-                      marginVertical: 10,
-                      width: 300,
-                      fontSize: 16,
-                    }}
-                    placeholder="enter your Phone Number"
-                  />
-                )}
-                name="phone"
-                rules={{
-                  required: {
-                    value: true,
-                    message: "This field is required!",
-                  },
-                }}
-              />
-            </View>
+    <Controller
+      control={control}
+      render={({ field: { onChange, onBlur, value } }) => (
+        <TextInput
+          keyboardType="numeric"
+          autoFocus={true}
+          onBlur={onBlur}
+          onChangeText={(value) => onChange(value)}
+          value={value}
+          style={styles.phoneNumberInput}
+          placeholder="Enter your Phone Number"
+          accessibilityLabel="Phone Number"
+        />
+      )}
+      name="phone"
+      rules={{
+        required: {
+          value: true,
+          message: "This field is required!",
+        },
+      }}
+    />
+  </View>
 
-            {errors.phone && (
-              <Text  allowFontScaling={false} style={{ color: "red" }}>{errors.phone.message}</Text>
-            )}
-            {err !== "" && <Text  allowFontScaling={false} style={{ color: "red" }}>{err}</Text>}
-          </View>
+  {errors.phone && (
+    <Text style={styles.errorText}>{errors.phone.message}</Text>
+  )}
+
+  {err !== "" && <Text style={styles.errorText}>{err}</Text>}
+</View>
+
 
 
 
@@ -162,19 +160,7 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
 
 
-          {/* <Pressable
-            onPress={() => navigation.navigate("Register")}
-            style={{ marginTop: 15 }}
-          >
-            <Text  allowFontScaling={false} style={{ textAlign: "center", color: "gray", fontSize: 16 }}>
-              Don't have an account? Sign Up
-            </Text>
-          </Pressable> */}
-
-          {/* <Toast
-            position='bottom'
-            bottomOffset={80}
-          /> */}
+         
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ScrollView>
@@ -182,6 +168,9 @@ const LoginScreen = ({ navigation }) => {
 };
 
 export default LoginScreen;
+
+
+
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -227,14 +216,18 @@ const styles = StyleSheet.create({
 });
 
 
-// create a login form which takes number if number is present in my database then i generate a otp and store that otp in my table if that mobile number is not present 
-//  then insert number and otp too then i send otp to user number const sdk = require('api')('@msg91api/v5.0#6n91xmlhu4pcnz');
 
-// sdk.auth('authkey');
-// sdk.sendSms({
-//   template_id: '659e5ebeb6ea785bac43ae09',
-//   short_url: '1 (On) or 0 (Off)',
-//   recipients: [{mobiles: '919XXXXXXXXX', VAR1: 'VALUE1', VAR2: 'VALUE2'}]
-// })
-//   .then(({ data }) => console.log(data))
-//   .catch(err => console.error(err)); if that otp matches  then i proceed
+ {/* <Pressable
+            onPress={() => navigation.navigate("Register")}
+            style={{ marginTop: 15 }}
+          >
+            <Text  allowFontScaling={false} style={{ textAlign: "center", color: "gray", fontSize: 16 }}>
+              Don't have an account? Sign Up
+            </Text>
+          </Pressable> */}
+
+          {/* <Toast
+            position='bottom'
+            bottomOffset={80}
+          /> */}
+

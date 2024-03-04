@@ -37,13 +37,13 @@ const IvfInnerScreen = ({ navigation}) => {
       const [facility,setFacility] = useState("")
 
        const getSurgeryList= async()=>{
-        //  const res = await axios.get("https://cureofine.com:8080/hospitals")
+        //  const res = await axios.get("https://cureofine.com/api/api/hospitals")
         //  const data= res.data;
 
         const locationId = JSON.parse(await AsyncStorage.getItem("locationId"));
         console.log("locationId",locationId)
 
-        const res= await axios.get("https://cureofine.com:8080/ivfList")
+        const res= await axios.get("https://cureofine.com/api/api/ivfList")
         const data = res.data
         //  console.log(route.params.id)
          let newArr= await data.filter((item)=>{ return item.category == route.params.id && item.ivf_location== locationId})
@@ -65,7 +65,7 @@ const IvfInnerScreen = ({ navigation}) => {
      
 
 //        const getSurgeryHospital = async(id)=>{
-//         const res= await axios.get("https://cureofine.com:8080/hospitals")
+//         const res= await axios.get("https://cureofine.com/api/api/hospitals")
 //         const data = res.data
 //         let newArr= await data.filter((item)=>{ return item.hos_id == id})
 //         let facArr = JSON.parse(newArr[0].facility_type)
@@ -82,7 +82,7 @@ const IvfInnerScreen = ({ navigation}) => {
 //     }, [surgery]);
 
    const getFacility = async(facArr)=>{
-    const res= await axios.get("https://cureofine.com:8080/facilityType")
+    const res= await axios.get("https://cureofine.com/api/api/facilityType")
     const data = res.data
     let facArr1 = []
     for (let i = 0; i < facArr.length; i++) {

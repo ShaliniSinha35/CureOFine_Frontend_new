@@ -32,10 +32,8 @@ import Teams from "../Components/Teams";
 import Location1 from "../Components/Location";
 import Contact from "../Components/Contact";
 import Footer from "../Components/Footer";
-import GetLocation from "./GetLocation";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
-import * as Location from "expo-location";
 import { Entypo } from "@expo/vector-icons";
 import { BottomModal, SlideAnimation, ModalContent } from "react-native-modals";
 import { Foundation } from "@expo/vector-icons";
@@ -82,8 +80,9 @@ const Home = ({ navigation }) => {
 
 
   const getText = async () => {
-    const res = await axios.get("https://cureofine.com:8080/staticText");
+    const res = await axios.get("https://cureofine.com/api/api/staticText");
     const data = res.data;
+
     // console.log(data)
     // console.log(decode(data[0].content))
     //  console.log(data[0].page_menu)
@@ -127,13 +126,13 @@ const Home = ({ navigation }) => {
 
 
   // const getState = async () => {
-  //   const res = await axios.get("https://cureofine.com:8080/state");
+  //   const res = await axios.get("https://cureofine.com/api/api/state");
   //   const data = res.data;
   //   // console.log(data);
   //   setState(data);
   // };
   // const getCity = async () => {
-  //   const res = await axios.get("https://cureofine.com:8080/city");
+  //   const res = await axios.get("https://cureofine.com/api/api/city");
   //   const data = res.data;
   //   // console.log(data);
   //   setCity(data);
@@ -144,7 +143,7 @@ const Home = ({ navigation }) => {
 
   const getLocation = async () => {
 
-    const res = await axios.get("https://cureofine.com:8080/presence");
+    const res = await axios.get("https://cureofine.com/api/api/presence");
     const data = res.data;
     // console.log("147", data)
     // console.log("147", data)
@@ -171,7 +170,7 @@ const Home = ({ navigation }) => {
   }, []);
 
   const getImage = async () => {
-    const res = await axios.get("https://cureofine.com:8080/banner");
+    const res = await axios.get("https://cureofine.com/api/api/banner");
     const data = res.data;
     let imgArr = []
     for (let i = 0; i < data.length; i++) {
@@ -201,29 +200,14 @@ const Home = ({ navigation }) => {
   };
 
   const getAddress = async () => {
-    // try {
-    //   const userData = JSON.parse(await AsyncStorage.getItem("user"));
-    //   if (!userData) {
-    //     CheckIfLocationEnabled();
-    //     GetCurrentLocation();
-    //   } 
-
-    //   else {
-    //     setDisplayCurrentAddress(userData);
-    //   }
-    // } catch (error) {
-    //   console.log("182", error);
-    // }
     const userData = JSON.parse(await AsyncStorage.getItem("user"));
     const locationId = JSON.parse(await AsyncStorage.getItem("locationId"));
     if (userData && locationId) {
-      // setDisplayCurrentAddress(cLoc!=null ? cLoc[0]: "");
+      
       setDisplayCurrentAddress(userData);
       setLocationId(locationId)
     }
-    // else{
-    //   setDisplayCurrentAddress(userData);
-    // }
+  
 
   };
 
@@ -231,51 +215,8 @@ const Home = ({ navigation }) => {
     getAddress();
   });
 
-  const CheckIfLocationEnabled = async () => {
-    let enabled = await Location.hasServicesEnabledAsync();
 
-    if (!enabled) {
-      Alert.alert(
-        "Location Service not enabled",
-        "Please enable your location services to continue",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
-    } else {
-      setLocationServiceEnabled(enabled);
-    }
-  };
 
-  const GetCurrentLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-
-    if (status !== "granted") {
-      Alert.alert(
-        "Permission not granted",
-        "Allow the app to use location service.",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
-    }
-
-    let { coords } = await Location.getCurrentPositionAsync();
-
-    if (coords) {
-      const { latitude, longitude } = coords;
-      let response = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
-
-      for (let item of response) {
-        // console.log(item)
-        let address = `${item.city}`;
-        //  ${item.street}, ${item.postalCode},
-        // console.log("248",address)
-        setDisplayCurrentAddress(address);
-      }
-    }
-  };
 
   const route = useRoute();
 
@@ -293,54 +234,8 @@ const Home = ({ navigation }) => {
     return null;
   }
 
-  const DATA = [
-    {
-      coverImageUri: require("../assets/Banner/cbanner1.png"),
-    },
-    {
-      coverImageUri: require("../assets/Banner/cbanner2.png"),
-    },
-  ];
-
-
-
-  const banner2 = [
-    {
-      coverImageUri: require("../assets/MidBanner/mb1.png"),
-    },
-    {
-      coverImageUri: require("../assets/MidBanner/mb2.png"),
-    },
-  ];
-
-  const renderItem = (data) => (
-    <View key={data.coverImageUri} style={styles.cardContainer}>
-      <View style={styles.cardWrapper}>
-        <Image style={styles.card} source={data.coverImageUri} />
-      </View>
-    </View>
-  );
-
-  const footerBanner = [
-    // {
-    //   coverImageUri: require("../assets/Banner/consult1.png"),
-    // },
-
-    // {
-    //   coverImageUri: require("../assets/physiotherapy.png"),
-    // },
-    {
-      coverImageUri: require("../assets/surgery1.png"),
-    },
-  ];
-
-  const tagsStyles = {
-
-    h1: {
-      color: 'white',
-      fontSize: 15
-    }
-  };
+  
+  
 
   return (
     <>
@@ -358,6 +253,9 @@ const Home = ({ navigation }) => {
           barStyle={"dark-content"}
           translucent={false}
         />
+
+
+
 
         {/* header */}
         <Header navigation={navigation}></Header>

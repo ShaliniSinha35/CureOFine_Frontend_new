@@ -17,7 +17,7 @@ const Location = ({navigation}) => {
    
     const getLocation= async()=>{
             
-       const res = await axios.get("https://cureofine.com:8080/presence");
+       const res = await axios.get("https://cureofine.com/api/api/presence");
        const data= res.data;
       //  console.log(data)
        setLoc(data)

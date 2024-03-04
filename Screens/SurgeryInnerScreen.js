@@ -43,7 +43,7 @@ const SurgeryInnerScreen = ({ navigation }) => {
         const locationId = JSON.parse(await AsyncStorage.getItem("locationId"));
        
 
-        const res = await axios.get("https://cureofine.com:8080/surgeryList")
+        const res = await axios.get("https://cureofine.com/api/api/surgeryList")
         const data = res.data
         //  console.log(route.params.id)
         let newArr = await data.filter((item) => { return item.category == route.params.id && item.surgery_location == locationId })
@@ -67,7 +67,7 @@ const SurgeryInnerScreen = ({ navigation }) => {
 
 
     const getFacility = async (facArr) => {
-        const res = await axios.get("https://cureofine.com:8080/facilityType")
+        const res = await axios.get("https://cureofine.com/api/api/facilityType")
         const data = res.data
         let facArr1 = []
         for (let i = 0; i < facArr.length; i++) {

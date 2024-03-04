@@ -39,7 +39,7 @@ const AyurvedaInnerScreen = ({ navigation }) => {
 
     const getAyurveda = async () => {
 
-        const res = await axios.get("https://cureofine.com:8080/ayurveda")
+        const res = await axios.get("https://cureofine.com/api/api/ayurveda")
         const data = res.data
         let newArr = await data.filter((item) => { return item.ayu_id == route.params.id })
         // console.log(newArr)

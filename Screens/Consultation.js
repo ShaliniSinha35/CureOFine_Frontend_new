@@ -75,7 +75,7 @@ const Consultation = ({ navigation }) => {
   const [doctorList, setDoctorList] = useState([])
 
   const getDoctorList = async () => {
-    const res = await axios.get("https://cureofine.com:8080/doctorsList")
+    const res = await axios.get("https://cureofine.com/api/api/doctorsList")
     const data = res.data;
     setDoctorList(data)
   }

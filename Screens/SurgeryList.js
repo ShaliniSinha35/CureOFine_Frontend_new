@@ -44,9 +44,9 @@ const SurgeryList = ({ navigation }) => {
   };
 
     const [surgeryList, setSurgeryList] = useState("")
-    // https://cureofine.com:8080/surgeryList
+    // https://cureofine.com/api/api/surgeryList
     const getSurgeryList = async () => {
-        const res = await axios.get("https://cureofine.com:8080/surgeryCategory")
+        const res = await axios.get("https://cureofine.com/api/api/surgeryCategory")
         const data = res.data;
         setSurgeryList(data);
     }

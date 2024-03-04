@@ -26,21 +26,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-
-      "useNextNotificationsApi": true,
-      "config": {
-        "googleSignIn": {
-          "apiKey": "YOUR_API_KEY"
-        }
-      },
-      "networkSecurity": {
-        "noDomains": ["*"]
-      },
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "ACCESS_FINE_LOCATION"
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
       ],
       "package": "com.cureofine.health"
     },
@@ -52,6 +40,14 @@
         "projectId": "dc320490-e321-4793-a5c7-834e3dceefbc"
       }
     },
+    "plugins": [
+      ["expo-build-properties", {
+        "android": {
+          "usesCleartextTraffic": true
+        }
+       
+      }]]
+,
     "owner": "zenwebmaniasolutions"
   }
 }

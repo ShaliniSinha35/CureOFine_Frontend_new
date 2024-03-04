@@ -10,7 +10,7 @@ const OfferBanner = () => {
 
 
     const getImage = async () => {
-        const res = await axios.get("https://cureofine.com:8080/offerBanner");
+        const res = await axios.get("https://cureofine.com/api/api/offerBanner");
         const data = res.data;
        
         let imgArr = []

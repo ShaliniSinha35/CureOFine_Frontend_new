@@ -11,7 +11,7 @@ const Hospitals = ({navigation}) => {
 
     const [hospitals, setHospitals]= useState(null)
     const getHospitals = async () => {
-      const res = await axios.get("https://cureofine.com:8080/hospitals");
+      const res = await axios.get("https://cureofine.com/api/api/hospitals");
       const data = res.data;
     
       setHospitals(data)

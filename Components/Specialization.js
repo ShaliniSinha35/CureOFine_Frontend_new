@@ -21,7 +21,7 @@ const Specialization = ({navigation}) => {
 
 
   const getSpecialization = async () => {
-    const res = await axios.get("https://cureofine.com:8080/specialization");
+    const res = await axios.get("https://cureofine.com/api/api/specialization");
 
     //  console.log(res.data)
     setSpecialization(res.data)
@@ -34,7 +34,7 @@ const Specialization = ({navigation}) => {
     getSpecialization()
   }, [])
 
-  // https://cureofine.com:8080/products
+  // https://cureofine.com/api/api/products
 
   const specialization = [
     {

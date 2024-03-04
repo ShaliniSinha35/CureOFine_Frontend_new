@@ -40,7 +40,7 @@ const DoctorInnerScreen = ({ navigation }) => {
 
     const getDoctor = async () => {
 
-        const res = await axios.get("https://cureofine.com:8080/doctorsList")
+        const res = await axios.get("https://cureofine.com/api/api/doctorsList")
         const data = res.data
         let newArr = await data.filter((item) => { return item.doctor_id == route.params.id })
         // console.log(newArr)
@@ -56,7 +56,7 @@ const DoctorInnerScreen = ({ navigation }) => {
 
     }
     const getDepartment = async (department) => {
-        const res1 = await axios.get("https://cureofine.com:8080/dept")
+        const res1 = await axios.get("https://cureofine.com/api/api/dept")
         const data1 = res1.data
         let newArr = await data1.filter((item) => { return item.mas_id == department })
         // console.log(newArr)
@@ -64,7 +64,7 @@ const DoctorInnerScreen = ({ navigation }) => {
 
     }
     const getQualification = async (qualification) => {
-        const res1 = await axios.get("https://cureofine.com:8080/qualification")
+        const res1 = await axios.get("https://cureofine.com/api/api/qualification")
         const data1 = res1.data
         let newArr = await data1.filter((item) => { return item.mas_id == department })
         // console.log(newArr)
@@ -72,7 +72,7 @@ const DoctorInnerScreen = ({ navigation }) => {
 
     }
     const getLanguages = async (LanguageArr) => {
-        const res1 = await axios.get("https://cureofine.com:8080/languages")
+        const res1 = await axios.get("https://cureofine.com/api/api/languages")
         const data1 = res1.data
         let langArr1 = []
         for (let i = 0; i < LanguageArr.length; i++) {

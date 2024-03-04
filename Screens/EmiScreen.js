@@ -9,7 +9,7 @@ import {
     TextInput,
     Alert,
     ScrollView,
-    Button
+    Button                                               
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -98,7 +98,7 @@ const EmiScreen = ({ navigation }) => {
 
 const submitData = async(data,uploadedImages)=>{
     try {
-        const res = await axios.post("https://cureofine.com:8080/emiForm", {
+        const res = await axios.post("https://cureofine.com/api/api/emiForm", {
 
             name: data.fullname,
             attendant_name: data.guardian,
@@ -153,7 +153,7 @@ const submitData = async(data,uploadedImages)=>{
                 name: 'aadhar.jpg',
             });
     
-            const response = await axios.post('https://cureofine.com:8080/upload', formData, {
+            const response = await axios.post('https://cureofine.com/api/api/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

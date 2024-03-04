@@ -41,7 +41,7 @@ const HospitalInnerScreen = ({ navigation }) => {
 
     const getHospital = async () => {
 
-        const res = await axios.get("https://cureofine.com:8080/hospitals")
+        const res = await axios.get("https://cureofine.com/api/api/hospitals")
         const data = res.data
         let newArr = await data.filter((item) => { return item.hos_id == route.params.id })
         // console.log(newArr)
@@ -56,7 +56,7 @@ const HospitalInnerScreen = ({ navigation }) => {
     }
 
     const getLocation = async (location) => {
-        const res1 = await axios.get("https://cureofine.com:8080/presence")
+        const res1 = await axios.get("https://cureofine.com/api/api/presence")
         const data1 = res1.data
         let newArr = await data1.filter((item) => { return item.location_id == location })
         setLocation(newArr)
@@ -65,7 +65,7 @@ const HospitalInnerScreen = ({ navigation }) => {
 
 
     const getFacilities = async (facArr) => {
-        const res1 = await axios.get("https://cureofine.com:8080/facilityType")
+        const res1 = await axios.get("https://cureofine.com/api/api/facilityType")
         const data1 = res1.data
         let facArr1 = []
         for (let i = 0; i < facArr.length; i++) {

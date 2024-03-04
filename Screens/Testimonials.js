@@ -20,7 +20,7 @@ const Testimonials = ({ navigation }) => {
 
 
 
-    // https://cureofine.com:8080/products
+    // https://cureofine.com/api/api/products
 
     const specialization = [
         {
@@ -45,7 +45,7 @@ const Testimonials = ({ navigation }) => {
 
     const [testimonial, setTestimonial] = useState([])
     const getTestimonial = async () => {
-        const res = await axios.get("https://cureofine.com:8080/testimonials")
+        const res = await axios.get("https://cureofine.com/api/api/testimonials")
         const data = res.data;
         setTestimonial(data)
     }

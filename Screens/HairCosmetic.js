@@ -22,9 +22,9 @@ const HairCosmetic = ({ navigation }) => {
 
  
     const [hairCosmetics, setHairCosmetics] = useState([])
-    // https://cureofine.com:8080/surgeryList
+    // https://cureofine.com/api/api/surgeryList
     const getHairCosmeticsList = async () => {
-        const res = await axios.get("https://cureofine.com:8080/hairCosmetic")
+        const res = await axios.get("https://cureofine.com/api/api/hairCosmetic")
         const data = res.data;
         setHairCosmetics(data)
     }

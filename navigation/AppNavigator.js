@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useState, UseEffect, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -244,11 +244,16 @@ const AppNavigator = () => {
           component={ContactScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Doctor Consultation"
-          component={Consultation}
-          options={{ headerShown: false }}
-        />
+       <Stack.Screen
+  name="Consultation"
+  component={Consultation}
+  options={{ headerShown: false }}
+/>
+<Stack.Screen
+  name="Doctor Consultation"
+  component={Consultation}
+  options={{ headerShown: false }}
+/>
         <Stack.Screen
           name="Surgery"
           component={SurgeryList}
@@ -405,6 +410,8 @@ const AppNavigator = () => {
         />
         <View style={{ alignItems: "center", marginTop: 30 }}>
           <FlatList
+        keyExtractor={(item) => item.id.toString() + item.name}
+
             data={drawerMenu}
             scrollEnabled={false}
             renderItem={({ item }) => (
@@ -493,7 +500,8 @@ const AppNavigator = () => {
                 />
               </View>
             )}
-            keyExtractor={(item) => item.id}
+                 
+
           />
         </View>
       </ScrollView>
@@ -529,13 +537,9 @@ const AppNavigator = () => {
             tabBarLabelStyle: { color: "black" },
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons
-                  name="md-information-circle"
-                  size={24}
-                  color="#f08080"
-                />
+                <AntDesign name="infocirlce" size={24} color="#f08080" />
               ) : (
-                <Ionicons name="md-information-circle" size={24} color="gray" />
+                <AntDesign name="infocirlce" size={24} color="gray" />
               ),
           }}
         />

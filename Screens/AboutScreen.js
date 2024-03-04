@@ -40,16 +40,17 @@ const AboutScreen = ({ navigation }) => {
 
   const getData = async () => {
     try {
-      const res = await fetchJsonp("https://cureofine.com:8080/about");
-      console.log("42", res);
-      const data = await res.json();
-      console.log(data[0]);
+      const res = await axios.get("https://cureofine.com/api/api/about");
+    
+      const data = res.data
+      // / console.log(res.data[0]);/
       setCont(decode(data));
     } catch (error) {
       console.error("Error fetching data:", error);
       
     }
   };
+
 
   useEffect(() => {
     getData();

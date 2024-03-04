@@ -35,7 +35,7 @@ const OtpScreen = ({ navigation }) => {
 
     if (code.length == 6) {
       try {
-        const res = await axios.post("https://cureofine.com:8080/verifyOTP", {
+        const res = await axios.post("https://cureofine.com/api/api/verifyOTP", {
           phone: route.params.number,
           otp: code
         })
@@ -47,6 +47,7 @@ const OtpScreen = ({ navigation }) => {
     
  // You can navigate to the next page here if the OTP is verified.
         await navigation.navigate("Home");
+        
       
         } else {
           console.log("OTP verification failed");
@@ -84,7 +85,7 @@ const OtpScreen = ({ navigation }) => {
 
     // if (code.length == 6) {
     //   try {
-    //     const response = await axios.post("https://cureofine.com:8080/verify", {
+    //     const response = await axios.post("https://cureofine.com/api/api/verify", {
     //       otp: code,
     //     });
 

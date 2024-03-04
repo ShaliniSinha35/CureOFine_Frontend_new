@@ -87,7 +87,7 @@ const BookingScreen = ({ navigation }) => {
 
 
         try {
-            const res = await axios.post("https://cureofine.com:8080/bookSurgery", {
+            const res = await axios.post("https://cureofine.com/api/api/bookSurgery", {
                 service_id: route.params.cat_id,
                 name: data.fullname,
                 gender: gender,
@@ -108,7 +108,7 @@ const BookingScreen = ({ navigation }) => {
                 // showToast();
     
                 try {
-                    const paymentResponse = await axios.post('https://cureofine.com:8080/api/payment', {
+                    const paymentResponse = await axios.post('https://cureofine.com/api/api/api/payment', {
                         transactionId: transactionId,
                         MUID:MUID,
                         name: data.fullname,
@@ -132,7 +132,7 @@ const BookingScreen = ({ navigation }) => {
 
                          const intervalId = setInterval(async () => {
                             try {
-                              const statusResponse = await axios.post(`https://cureofine.com:8080/api/status/${tId}`);
+                              const statusResponse = await axios.post(`https://cureofine.com/api/api/api/status/${tId}`);
                   
                               console.log("Payment Status:", statusResponse.data);
                   
@@ -142,7 +142,7 @@ const BookingScreen = ({ navigation }) => {
 
                                    try{
 
-                                    const updateRes = await axios.post("https://cureofine.com:8080/updatePaymentTransactionSuccess", {
+                                    const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionSuccess", {
                                       
                                         phone: userInfo,
                                         transaction_id: tId,
@@ -163,7 +163,7 @@ const BookingScreen = ({ navigation }) => {
                                 clearInterval(intervalId); // Stop the interval
                                 try{
 
-                                    const updateRes = await axios.post("https://cureofine.com:8080/updatePaymentTransactionFailure", {
+                                    const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionFailure", {
                                       
                                         phone: userInfo,
                                         transaction_id: tId,
@@ -204,13 +204,13 @@ const BookingScreen = ({ navigation }) => {
     //     const { url } = event;
     //     console.log(url)
     //     // Check if the URL matches your redirect URL pattern
-    //     if (url.startsWith('http://192.168.0.110:3000/api/status/')) {
+    //     if (url.startsWith('https://cureofine.com/api/api/status/')) {
     //       // Extract transactionId from the URL (You may need to parse the URL accordingly)
     //       const transactionId = url.split('/').pop();
     //       console.log('Transaction ID:', transactionId);
     //       // Call your backend to check the payment status
     //       try {
-    //         const statusResponse = await axios.post(`http://192.168.0.110:3000/api/status/${transactionId}`);
+    //         const statusResponse = await axios.post(`https://cureofine.com/api/api/status/${transactionId}`);
     //         // Handle the payment status (statusResponse.data.status)
     //         console.log('Payment Status:', statusResponse.data.status);
     //         navigation.navigate("PaymentStatusScreen",{status:statusResponse.data.status})
@@ -244,7 +244,7 @@ const BookingScreen = ({ navigation }) => {
             const { url } = navState;
             console.log("242",url)
             // Check if the URL indicates a successful payment
-            if (url.startsWith('https://cureofine.com:8080/api/status/')) {
+            if (url.startsWith('https://cureofine.com/api/api/api/status/')) {
               // Close or navigate away from the WebView
               // This can be done using navigation.goBack() or similar
               // For example:

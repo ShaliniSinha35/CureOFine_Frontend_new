@@ -35,7 +35,7 @@ const ContactScreen = ({ navigation }) => {
      reset()
      showToast()
       const res = await axios
-        .post("https://cureofine.com:8080/contact", {
+        .post("https://cureofine.com/api/api/contact", {
           name: data.fullname,
           email: data.email,
           message: data.message,

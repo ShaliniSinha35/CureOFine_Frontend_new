@@ -24,7 +24,7 @@ const Contact = () => {
 
 
   const getInfo = async()=>{
-    const res= await axios.get("https://cureofine.com:8080/contactInfo");
+    const res= await axios.get("https://cureofine.com/api/api/contactInfo");
     const data = res.data
     // console.log(data)
     setContact(data)

@@ -17,7 +17,7 @@ const Privacy = ({navigation}) => {
   const [cont, setCont] = useState("");
 
   const getData = async () => {
-   const res= await axios.get("https://cureofine.com:8080/privacy");
+   const res= await axios.get("https://cureofine.com/api/api/privacy");
    const data= res.data;
    console.log(data[0])
    setCont(decode(data))

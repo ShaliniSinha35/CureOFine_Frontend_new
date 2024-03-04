@@ -17,7 +17,7 @@ const Brands = () => {
 
 
   const getBrand = async () => {
-    const res = await axios.get("https://cureofine.com:8080/brands");
+    const res = await axios.get("https://cureofine.com/api/api/brands");
     const data = res.data;
     // console.log(data)
     setBrands(data)
