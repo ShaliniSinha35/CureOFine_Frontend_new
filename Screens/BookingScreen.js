@@ -63,7 +63,8 @@ const BookingScreen = ({ navigation }) => {
 
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
-        setShowDatePicker(Platform.OS === 'ios'); // Close the date picker on iOS
+        setShowDatePicker(Platform.OS === 'ios'); 
+        // Close the date picker on iOS
         setDate(currentDate);
     };
 
@@ -118,7 +119,6 @@ const BookingScreen = ({ navigation }) => {
                         console.log("119",paymentResponse.data.message);
                         if (paymentResponse.data.result) {
                             setPaymentResult(paymentResponse.data.result);
-
                             const tId = paymentResponse.data.transactionId;
                             const mId = paymentResponse.data.merchantId;
                             console.log(tId)

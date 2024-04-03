@@ -5,7 +5,7 @@
     },
     "name": "CureOFine",
     "slug": "cureofine",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,9 +19,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cureofine.health"
+      "bundleIdentifier": "com.cureofine.app"
     },
     "android": {
+
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -30,7 +32,7 @@
         "INTERNET",
         "ACCESS_NETWORK_STATE"
       ],
-      "package": "com.cureofine.health"
+      "package": "com.cureofine.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
