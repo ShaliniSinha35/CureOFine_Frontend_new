@@ -116,7 +116,7 @@ const EnquiryScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your Phone Number"
+                      placeholder="Enter your Phone Number"
                     />
                   )}
                   name="phone"
@@ -152,7 +152,7 @@ const EnquiryScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your FullName"
+                      placeholder="Enter your FullName"
                     />
                   )}
                   name="fullname"
@@ -194,7 +194,7 @@ const EnquiryScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your Email"
+                      placeholder="Enter your Email"
                     />
                   )}
                   name="email"
@@ -237,7 +237,7 @@ const EnquiryScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your City"
+                      placeholder="Enter your City"
                     />
                   )}
                   name="city"
@@ -277,7 +277,7 @@ const EnquiryScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your Address"
+                      placeholder="Enter your Address"
                     />
                   )}
                   name="address"
@@ -317,7 +317,7 @@ const EnquiryScreen = ({ navigation }) => {
                       editable
                       multiline
                       numberOfLines={5}
-                      placeholder="enter your Message"
+                      placeholder="Enter your Message"
                     />
                   )}
                   name="message"

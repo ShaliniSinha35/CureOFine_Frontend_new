@@ -10,20 +10,37 @@ import RenderHTML from "react-native-render-html";
 const Hospitals = ({navigation}) => {
 
     const [hospitals, setHospitals]= useState(null)
+    const [image,setImage]= useState(null)
+
     const getHospitals = async () => {
-      const res = await axios.get("https://cureofine.com/api/api/hospitals");
-      const data = res.data;
-    
-      setHospitals(data)
-    
-     
+      try {
+        const res = await axios.get("https://cureofine.com/api/api/hospitals");
+        const data = res.data;
+        let newArr = [...data];
   
-  };
+        for (let i = 0; i < data.length; i++) {
+          try {
+            console.log("Raw image data:", data[i].image); // Log the raw image data
+            const imgArr = JSON.parse(data[i].image);
+            setImage(imgArr); // This might not be necessary if it's used just for the hospitals array
+            newArr[i].image = imgArr;
+            console.log(imgArr.length, imgArr);
+          } catch (parseError) {
+            console.error(`Error parsing JSON for hospital at index ${i}:`, parseError);
+            newArr[i].image = []; // Default to an empty array or handle appropriately
+          }
+        }
   
-  useEffect(() => {
+        console.log("31", newArr);
+        setHospitals(newArr); // Update hospitals state after processing data
+      } catch (error) {
+        console.error('Error fetching hospitals data:', error);
+      }
+    };
+  
+    useEffect(() => {
       getHospitals();
-  
-  }, []);
+    }, []);
 
     return (
         <>
@@ -89,7 +106,8 @@ const Hospitals = ({navigation}) => {
             // console.log(service)
          }
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {hospitals!= null &&  hospitals.map((item, index) => (
+     
+            {hospitals!= null ? hospitals.map((item, index) => (
               <TouchableOpacity
                 key={item.id}
                 style={{
@@ -99,6 +117,8 @@ const Hospitals = ({navigation}) => {
                   marginLeft: 4,
                   marginTop:10,
                   elevation:5,
+                  flexWrap:"wrap",
+                  width:150
                 }}
 
                 onPress={()=>navigation.navigate("HospitalInnerScreen", {id:item.hos_id})}
@@ -108,17 +128,22 @@ const Hospitals = ({navigation}) => {
               >
                 <Image
                   style={{ width: 100, height: 120, resizeMode: "contain" }}
-                  source={{ uri: `https://cureofine.com/upload/hospital/${item.image}` }}
+                  source={{ uri: `https://cureofine.com/upload/hospital/${item.image[0]}` }}
                 />
                 <View>
-                  <Text  allowFontScaling={false} style={{ fontWeight: 600, fontFamily: "OpenSans", fontSize:14 }}>
-                  <RenderHTML  key={item.id} source={{ html: decode(item.name) }}></RenderHTML>
+
+         
+<View style={{width:150,alignItems:"center",paddingLeft:5}}>
+<Text allowFontScaling={false} style={{ fontWeight: 800, fontFamily: "OpenSans", fontSize:12 }}>
+                  {decode(item.name)}
                   </Text>
+</View>
+               
                 </View>
     
               
               </TouchableOpacity>
-            ))}
+            )): <Text>no Hospital</Text>}
           </ScrollView>
           </View>                                                                                          
         </>

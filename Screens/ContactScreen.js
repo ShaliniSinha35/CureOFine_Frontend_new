@@ -111,7 +111,7 @@ const ContactScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your FullName"
+                      placeholder="Enter your FullName"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -144,7 +144,7 @@ const ContactScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your Email"
+                      placeholder="Enter your Email"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -183,7 +183,7 @@ const ContactScreen = ({ navigation }) => {
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="enter your Phone Number"
+                      placeholder="Enter your Phone Number"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -249,7 +249,7 @@ const ContactScreen = ({ navigation }) => {
                       editable
                       multiline
                       numberOfLines={5}
-                      placeholder="enter your Message"
+                      placeholder="Enter your Message"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}

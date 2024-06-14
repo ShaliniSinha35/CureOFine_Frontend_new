@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
@@ -41,12 +42,14 @@ const OtpScreen = ({ navigation }) => {
         })
 
         if (res.data.message == "OTP verification successful") {
+          console.log("44",res.data.results)
+        
           console.log("OTP verification was successful");
           console.log(res.data.number)
-          dispatch({ type: 'SET_USER_INFO', payload: route.params.number  });
+          dispatch({ type: 'SET_USER_INFO', payload: {number:route.params.number,id:res.data.results}  });
     
  // You can navigate to the next page here if the OTP is verified.
-        await navigation.navigate("Home");
+        // await navigation.navigate("Home");
         
       
         } else {

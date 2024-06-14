@@ -27,47 +27,68 @@ import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { WebView } from 'react-native-webview';
+import moment from 'moment'; 
+import BookingAlert from "../Components/BookingAlert";
 const BookingScreen = ({ navigation }) => {
     const [paymentResult, setPaymentResult] = useState(null);
-    const userInfo = useSelector(state => state.user.userInfo);
+    const userInfo = useSelector(state => state.user.userInfo ? state.user.userInfo.number:null);
     const route = useRoute()
-    // console.log(route.params.price)
+    console.log(route.params.book_type)
     const [service, setService] = useState(route.params.name);
-    const [price, setPrice] = useState(route.params.price)
+    const [price, setPrice] = useState(route.params.display_price)
     const [gender, setGender] = React.useState("");
-
+const [emi, setEmi] = useState("")
     const [date, setDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     const [time, setTime] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
 
+    const [visible,setVisible]= useState(false)
+
+    const userId = useSelector(state => state.user.userInfo ?state.user.userInfo.id:null);
+
+const [flag,setFlag] = useState(false)
+   
+    const showTimepicker = () => {
+        setShowTimePicker(!showTimePicker);
+    };
+    
     const handleTimeChange = (event, selectedTime) => {
-        setShowTimePicker(Platform.OS === 'ios');
         if (selectedTime) {
-            setTime(selectedTime);     
+        
+            setTime(selectedTime);
+            setShowTimePicker(false);
         }
     };
 
-    const showTimepicker = () => {
-        setShowTimePicker(true);
-    };
 
+    const goToHome = async ()=>{
+        if(!route.params.name){
+            navigation.navigate("Home")
+        }
+    }
+    useEffect(()=>{
+        goToHome()
+    })
 
 
     const showDatepicker = () => {
-        setShowDatePicker(true);
+        setShowDatePicker(!showDatePicker);
     };
 
 
 
     const onDateChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShowDatePicker(Platform.OS === 'ios'); 
-        // Close the date picker on iOS
-        setDate(currentDate);
+ 
+        if (selectedDate) {
+            
+            setDate(selectedDate);
+            setShowDatePicker(!showDatePicker);
+        } 
     };
-
+    
+  
 
     const {
         register,
@@ -80,121 +101,164 @@ const BookingScreen = ({ navigation }) => {
 
     const onSubmit = async (data) => {
         console.log("75", data, gender);
-
+        // https://cureofine.com/api/api/bookSurgery
         const transactionId = "T" + Date.now();
         const MUID = "MUID" + Date.now()
 
+        const newDate= moment(date).format('YYYY-MM-DD')
+        const newTime= moment(time).format('HH:mm')
 
-        try {
-            const res = await axios.post("https://cureofine.com/api/api/bookSurgery", {
-                service_id: route.params.cat_id,
-                name: data.fullname,
-                gender: gender,
-                age: data.age,
-                address: data.address,
-                mobile: userInfo,
-                email: data.email,
-                service_name: route.params.name,
-                service_date: date.toDateString(),
-                service_time: time.toLocaleTimeString(),
-                amount: route.params.price,
-                book_type: route.params.cat_name
-            });
 
-            if (res.status === 200 && res.data.message === "Insertion successful") {
-                reset();
-                setGender("")
-                // showToast();
+  
+        if (route.params.book_type === "Consultation" || route.params.book_type === "Ayurveda") {
+            console.log("route.params.book_type == Consultation or Ayurveda", route.params.book_type);
     
-                try {
-                    const paymentResponse = await axios.post('https://cureofine.com/api/api/api/payment', {
-                        transactionId: transactionId,
-                        MUID:MUID,
-                        name: data.fullname,
-                        mobile: userInfo,
-                        amount: route.params.price
-                    });
+            try {
+                const res = await axios.post("https://cureofine.com/api/api/bookSurgeryForConsultation", {
+                    user_id: userId,
+                    service_id: route.params.id,
+                    name: data.fullname,
+                    gender: gender,
+                    age: data.age,
+                    address: data.address,
+                    mobile: userInfo,
+                    email: data.email,
+                    service_name: route.params.name,
+                    service_date: newDate,
+                    service_time: newTime,
+                    amount: route.params.price,
+                    book_type: route.params.book_type,
+                    tax: 0,
+                });
     
-                    if (paymentResponse.status === 200) {
-                        console.log("119",paymentResponse.data.message);
-                        if (paymentResponse.data.result) {
-                            setPaymentResult(paymentResponse.data.result);
-                            const tId = paymentResponse.data.transactionId;
-                            const mId = paymentResponse.data.merchantId;
-                            console.log(tId)
-                            console.log(mId)
-                        
-                         const res1 = await Linking.openURL(paymentResponse.data.result);
-                       
-
-
-                         const intervalId = setInterval(async () => {
-                            try {
-                              const statusResponse = await axios.post(`https://cureofine.com/api/api/api/status/${tId}`);
-                  
-                              console.log("Payment Status:", statusResponse.data);
-                  
-                              if (statusResponse.data.status == "success") {
-                                // Payment successful, navigate to the next screen
-                                clearInterval(intervalId); // Stop the interval
-
-                                   try{
-
-                                    const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionSuccess", {
-                                      
-                                        phone: userInfo,
-                                        transaction_id: tId,
-                                        service_name: route.params.name
-                                      
-                                    });
-
-                                    console.log(updateRes.data.message)
-                                      
-                                   }
-                                   catch(err){
-                                         console.log(err)
-                                   }
-                                navigation.navigate("Home");
-                                // Alert.alert("Payment Status:", statusResponse.data.status)
-                              } else if (statusResponse.data.status == "failure") {
-                                // Payment failed, navigate to the failure screen
-                                clearInterval(intervalId); // Stop the interval
-                                try{
-
-                                    const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionFailure", {
-                                      
-                                        phone: userInfo,
-                                        transaction_id: tId,
-                                        service_name: route.params.name
-                                      
-                                    });
-
-                                    console.log(updateRes.data.message)
-                                      
-                                   }
-                                   catch(err){
-                                         console.log(err)
-                                   }
-                                navigation.navigate("Home");
-                                // Alert.alert("Payment Status:", statusResponse.data.status)
-                              }
-                            } catch (error) {
-                              console.error("Error checking payment status:", error);
+                console.log(route.params.book_type);
+    
+                if (res.status === 200 && res.data.message === "Insertion successful") {
+                    reset();
+                    setGender("");
+    
+                    try {
+                        const paymentResponse = await axios.post('https://cureofine.com/api/api/api/payment', {
+                            transactionId: transactionId,
+                            MUID: MUID,
+                            name: data.fullname,
+                            mobile: userInfo,
+                            amount: route.params.price
+                        });
+    
+                        console.log("paymentResponse", paymentResponse);
+    
+                        if (paymentResponse.status === 200) {
+                            console.log("119", paymentResponse.data.message);
+                            if (paymentResponse.data.result) {
+                                setPaymentResult(paymentResponse.data.result);
+                                const tId = paymentResponse.data.transactionId;
+                                const mId = paymentResponse.data.merchantId;
+                                console.log(tId);
+                                console.log(mId);
+    
+                                const res1 = await Linking.openURL(paymentResponse.data.result);
+    
+                                const intervalId = setInterval(async () => {
+                                    try {
+                                        const statusResponse = await axios.post(`https://cureofine.com/api/api/status/${tId}`);
+    
+                                        console.log("Payment Status:", statusResponse.data);
+    
+                                        if (statusResponse.data.status === "success") {
+                                            clearInterval(intervalId);
+    
+                                            try {
+                                                const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionSuccess", {
+                                                    phone: userInfo,
+                                                    transaction_id: tId,
+                                                    service_name: route.params.name,
+                                                    user_id: userId
+                                                });
+    
+                                                console.log(updateRes.data.message);
+                                            } catch (err) {
+                                                console.log(err);
+                                            }
+    
+                                            navigation.navigate("Home");
+                                        } else if (statusResponse.data.status === "failure") {
+                                            clearInterval(intervalId);
+    
+                                            try {
+                                                const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionFailure", {
+                                                    phone: userInfo,
+                                                    transaction_id: tId,
+                                                    service_name: route.params.name,
+                                                    user_id: userId
+                                                });
+    
+                                                console.log(updateRes.data.message);
+                                            } catch (err) {
+                                                console.log(err);
+                                            }
+    
+                                            navigation.navigate("Home");
+                                        }
+                                    } catch (error) {
+                                        console.error("Error checking payment status:", error);
+                                    }
+                                }, 5000);
                             }
-                          }, 5000); // Check every 5 
-                          }
-                     
-    
+                        }
+                    } catch (error) {
+                        Alert.alert("Payment API network error");
+                        console.error("Payment API network error:", error.message);
                     }
-                } catch (error) {
-                    console.error("Payment API network error:", error.message);
                 }
+            } catch (error) {
+                console.error("Network error:", error.message);
             }
-        } catch (error) {
-        
-            console.error("Network error:", error.message);
+        } else {
+            console.log("route.params.book_type !== Consultation or Ayurveda", route.params.book_type);
+    
+            try {
+                const res = await axios.post("https://cureofine.com/api/api/bookSurgery", {
+                    user_id: userId,
+                    service_id: route.params.id,
+                    name: data.fullname,
+                    gender: gender,
+                    age: data.age,
+                    address: data.address,
+                    mobile: userInfo,
+                    email: data.email,
+                    service_name: route.params.name,
+                    service_date: newDate,
+                    service_time: newTime,
+                    amount: route.params.price,
+                    book_type: route.params.book_type,
+                    display_price: route.params.display_price,
+                    tax: 0,
+                    opd_price: route.params.price,
+                    emi: emi
+                });
+    
+                console.log("277", route.params.book_type);
+    
+                if (res.status === 200 && res.data.message === "Insertion successful") {
+                    setVisible(true);
+                    reset();
+                    setGender("");
+                    setEmi("");
+                }
+            } catch (error) {
+                console.error("Network error:", error.message);
+            }
         }
-    };
+
+   
+
+}
+
+
+
+
+
         
  
 
@@ -231,6 +295,7 @@ const BookingScreen = ({ navigation }) => {
             text1: "Thank you for booking.",
             text2: "we will get back to you soon!!",
         });
+        navigation.navigate("Home")
 
         // console.log("toast called");
     };
@@ -252,6 +317,7 @@ const BookingScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={{ backgroundColor: "white", paddingBottom: 50 }}>
             <Header navigation={navigation}></Header>
+           
             <Text
                 style={{
                     height: 1,
@@ -489,6 +555,7 @@ const BookingScreen = ({ navigation }) => {
                             }} mt={1} onValueChange={itemValue => setGender(itemValue)}>
                                 <Select.Item label="Male" value="male" />
                                 <Select.Item label="Female" value="female" />
+                                <Select.Item label="Others" value="others" />
 
                             </Select>
                         </View>
@@ -500,14 +567,14 @@ const BookingScreen = ({ navigation }) => {
                                 <Text style={{ margin: 10 }}><EvilIcons name="calendar" size={24} color="black" onPress={() => showDatepicker()} /></Text>
 
                                 {showDatePicker && (
-                                    <DateTimePicker
-                                        value={date}
-                                        mode="date"
-                                        display="default"
-                                        onChange={onDateChange}
-                                    />
-                                )}
-                                <Text>{date.toDateString()}</Text>
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
+                         <Text>{moment(date).format('YYYY-MM-DD')}</Text>
 
                             </View>
 
@@ -528,13 +595,30 @@ const BookingScreen = ({ navigation }) => {
                                         onChange={handleTimeChange}
                                     />
                                 )}
-                                <Text>Selected Time: {time.toLocaleTimeString()}</Text>
-
+ <Text>{moment(time).format('HH:mm')}</Text>
 
                             </View>
 
                         </View>
 
+
+{route.params.book_type != "Consultation"  ?
+
+<View style={styles.inputCont}>
+<Text>Need EMI for treatment*</Text>
+<Select style={{ backgroundColor: "#D0D0D0" }} selectedValue={emi} minWidth="200" accessibilityLabel="Select" placeholder="Select" _selectedItem={{
+    bg: "#D0D0D0"
+    // endIcon: <CheckIcon size="5"/>
+}} mt={1} onValueChange={itemValue => setEmi(itemValue)}>
+    <Select.Item label="YES" value="yes" />
+    <Select.Item label="NO" value="no" />
+  
+
+</Select>
+</View>
+: null
+}
+                      
 
                         <View style={{ marginTop: 30 }} />
 
@@ -566,7 +650,20 @@ const BookingScreen = ({ navigation }) => {
                 </View>
 
 
+
+                <BookingAlert
+        isVisible={visible}
+        onClose={() => setVisible(false)}
+        onConfirm={()=>{
+          navigation.navigate("DashboardScreen")
+        }}
+      />     
+       
+
+
                 <Contact></Contact>
+
+
                 <Footer></Footer>
             </ScrollView>
 

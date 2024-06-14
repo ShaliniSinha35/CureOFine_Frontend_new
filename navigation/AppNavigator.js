@@ -68,6 +68,11 @@ import LogoutScreen from "../Screens/LogoutScreen";
 import { logoutUser } from "../redux/actions/userActions";
 import ProfileScreen from "../Screens/ProfileScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DashboardScreen from "../Screens/DashboardScreen";
+import TreatmentScreen from "../Screens/TreatmentScreen";
+import VideoConsultation from "../Screens/VideoConsultation";
+import VoiceConsultation from "../Screens/VoiceConsultation";
+import ChatConsultation from "../Screens/ChatConsultation";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -377,6 +382,36 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
 
+
+<Stack.Screen
+          name="DashboardScreen"
+          component={DashboardScreen}
+          options={{ headerShown: false }}
+        />
+
+<Stack.Screen
+          name="TreatmentScreen"
+          component={TreatmentScreen}
+          options={{ headerShown: false }}
+        />
+
+<Stack.Screen
+          name="VideoConsultation"
+          component={VideoConsultation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="VoiceConsultation"
+          component={VoiceConsultation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChatConsultation"
+          component={ChatConsultation}
+          options={{ headerShown: false }}
+        />
+
+
 {/* <Stack.Screen
           name="PaymentStatusScreen"
           component={PaymentStatusScreen}
@@ -577,8 +612,8 @@ const AppNavigator = () => {
           }}
         />
         <Tab.Screen
-          name={userInfo ? "ProfileScreen" : "Login"}
-          component={userInfo ? ProfileScreen : LoginScreen}
+          name={userInfo ? "DashboardScreen" : "Login"}
+          component={userInfo ? DashboardScreen : LoginScreen}
           options={{
           headerShown: false,
           tabBarLabel: userInfo ? "Profile" : "Login",

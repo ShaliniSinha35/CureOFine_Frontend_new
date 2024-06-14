@@ -108,7 +108,7 @@ doctorList.length == 0 ? <View style={{ flex: 1, justifyContent: "center", align
 
         <ScrollView >
 
-{/* <View style={styles.container}>
+{/* <View style={styles.container}> 
 <Carousel
 pagination={PaginationLight}
 renderItem={renderItem}
@@ -225,16 +225,16 @@ borderRadius: 5,
 
       <Card.Actions style={{ marginTop: 10 }}>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Voice Consultation",price:item.voice_fee,cat_id:item.doctor_id,cat_name:"Voice Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10, justifyContent: "space-between" }}><Feather name="phone-call" size={18} color="white" />  On Call</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Voice Consultation",price:item.voice_fee,cat_id:item.doctor_id,cat_name:"Voice Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10, justifyContent: "space-between" }}><Feather name="phone-call" size={18} color="white" />  On Call</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.voice_fee}/-</Text>
         </View>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id ,name:"Video Consultation",price:item.video_fee,cat_id:item.doctor_id,cat_name:"Video Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Feather name="video" size={18} color="white" /> Video Call</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id ,name:"Video Consultation",price:item.video_fee,cat_id:item.doctor_id,cat_name:"Video Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Feather name="video" size={18} color="white" /> Video Call</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.video_fee}/-</Text>
 
         </View>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Chat Consultation",price:item.chat_fee,cat_id:item.doctor_id,cat_name:"Chat Consultation" })}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color="white" />  On Chat</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Chat Consultation",price:item.chat_fee,cat_id:item.doctor_id,cat_name:"Chat Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color="white" />  On Chat</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.chat_fee}/-</Text>
 
         </View>

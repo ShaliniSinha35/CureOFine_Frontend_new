@@ -174,7 +174,7 @@ const AyurvedaInnerScreen = ({ navigation }) => {
                                     marginHorizontal: 15,
                                     marginVertical: 0,
                                 }}
-                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("BookingScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name})}
+                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("BookingScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"Ayurveda"})}
                             >
                                 <Text>Book Now</Text>
                             </TouchableOpacity>
@@ -189,7 +189,7 @@ const AyurvedaInnerScreen = ({ navigation }) => {
                                     marginVertical: 0,
                                     marginTop:10
                                 }}
-                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("EmiScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name})}
+                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("EmiScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"Ayurveda"})}
                             >
                                 <Text>EMI</Text>
                             </TouchableOpacity>

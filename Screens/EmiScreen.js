@@ -25,7 +25,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useSelector } from "react-redux";
 const EmiScreen = ({ navigation }) => {
     const route = useRoute()
-    const userInfo = useSelector(state => state.user.userInfo);
+    const userInfo = useSelector(state => state.user.userInfo ? state.user.userInfo.number:null);
+
     const [photo, setPhoto] = useState(null);
     const [aadhar, setAadhar] = useState(null);
 
@@ -97,6 +98,7 @@ const EmiScreen = ({ navigation }) => {
 
 
 const submitData = async(data,uploadedImages)=>{
+    // https://cureofine.com/api/api
     try {
         const res = await axios.post("https://cureofine.com/api/api/emiForm", {
 

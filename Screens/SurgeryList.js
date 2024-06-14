@@ -111,7 +111,7 @@ data={surgeryList}
         justifyContent: "space-between",
       }}
 renderItem={({ item, index }) => (
-<TouchableOpacity style={{margin:10,width:170,alignItems:"center",margin:10,padding:10,elevation:3,borderRadius:5}}>
+<View style={{margin:10,width:170,alignItems:"center",margin:10,padding:10,elevation:3,borderRadius:5}}>
 
 <View style={{width:"100%", alignItems:"center"}}>
 <Image style={{width:100,height:100}} source={{ uri: `https://cureofine.com/upload/surgerycat/${item.image}` }} />
@@ -149,7 +149,7 @@ renderItem={({ item, index }) => (
 
 
 
-</TouchableOpacity>
+</View>
 )}
   />
 
@@ -205,7 +205,7 @@ export default SurgeryList
 
                          // <Card key={item.id} style={{ margin: 10 }} theme={{ colors: { primary: 'green' } }} >
 
-                           //     <Card.Cover source={require("../assets/surgeryImg.png")} />
+                           //     <Card.contain source={require("../assets/surgeryImg.png")} />
                                 //     <Card.Title title={item.name} subtitle="" />
 
                                 //     <Card.Content>
@@ -251,7 +251,7 @@ export default SurgeryList
 
                                 //     <View style={{ flexDirection: "row", width: "100%", alignItems: "center" }}>
                                 //         {/* https://cureofine.com/upload/surgerycat/ */}
-                                //         <Image source={{uri:`https://cureofine.com/upload/surgerycat/${item.image}`}} style={{ height: 150, width: 168, resizeMode: "cover" }} />
+                                //         <Image source={{uri:`https://cureofine.com/upload/surgerycat/${item.image}`}} style={{ height: 150, width: 168, resizeMode: "contain" }} />
 
                                 //         <View style={{ marginLeft: 8, flexWrap: "wrap" }}>
 

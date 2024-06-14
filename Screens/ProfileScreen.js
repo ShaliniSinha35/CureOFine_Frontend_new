@@ -40,7 +40,8 @@ const ProfileScreen = ({ navigation }) => {
   const [showPicker, setShowPicker] = useState(false);
   const [imageName, setImage] = useState("");
 
-  const userInfo = useSelector((state) => state.user.userInfo);
+  const userInfo = useSelector(state => state.user.userInfo ? state.user.userInfo.number:null);
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -193,6 +194,7 @@ const ProfileScreen = ({ navigation }) => {
                                         setEditableFullName(value);
                                         onChange(value);
                                       }}
+                                    
                                       value={editableFullName}
                                 />
                             )}
