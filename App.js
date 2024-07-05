@@ -6,6 +6,7 @@ import { NativeBaseProvider } from "native-base";
 import AppNavigator from "./navigation/AppNavigator";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
+import { Dimensions } from "react-native";
 
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '././redux/store';
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    height:Dimensions.get('screen').height
   }
 });
 

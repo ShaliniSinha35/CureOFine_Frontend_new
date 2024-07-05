@@ -54,8 +54,18 @@ const TreatmentScreen = ({navigation}) => {
         })
      
         const data= res.data
-        console.log(data.length)
-        setTreatments(data)
+        // console.log(data)
+        let sortArr=data
+
+        sortArr.sort((a, b) => {
+          const idA = parseInt(a.booking_id.replace(/[^0-9]/g, ''), 10);
+          const idB = parseInt(b.booking_id.replace(/[^0-9]/g, ''), 10);
+          return idB - idA;
+        });
+    
+     console.log(sortArr[0])
+        setTreatments(sortArr);
+       
         setName(data[0].name)
         setMobile(data[0].mobile)
       }
@@ -98,7 +108,7 @@ const TreatmentScreen = ({navigation}) => {
           
            const res1 = await Linking.openURL(paymentResponse.data.result);
          
-
+           navigation.navigate("Home");
 
            const intervalId = setInterval(async () => {
               try {
@@ -106,57 +116,57 @@ const TreatmentScreen = ({navigation}) => {
     
                 console.log("Payment Status:", statusResponse.data);
     
-                if (statusResponse.data.status == "success") {
-                  // Payment successful, navigate to the next screen
-                  clearInterval(intervalId); // Stop the interval
+                // if (statusResponse.data.status == "success") {
+                //   // Payment successful, navigate to the next screen
+                //   clearInterval(intervalId); // Stop the interval
 
-                     try{
+                //      try{
 
-                      const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionSuccess", {
+                //       const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionSuccess", {
                         
-                          phone: userInfo,
-                          transaction_id: tId,
-                          user_id: userId,
-                          booking_id:bookingId,
-                          opd_transaction_id: tId,
-                          opd_payment_status: 1,
-                          payment_status:1
-                      });
+                //           phone: userInfo,
+                //           transaction_id: tId,
+                //           user_id: userId,
+                //           booking_id:bookingId,
+                //           opd_transaction_id: tId,
+                //           opd_payment_status: 1,
+                //           payment_status:1
+                //       });
 
-                      console.log(updateRes.data.message)
+                //       console.log(updateRes.data.message)
                         
-                     }
-                     catch(err){
-                           console.log(err)
-                     }
-                  navigation.navigate("Home");
-                  Alert.alert("Payment Status:", statusResponse.data.status)
-                } else if (statusResponse.data.status == "failure") {
-                  // Payment failed, navigate to the failure screen
-                  clearInterval(intervalId); // Stop the interval
-                  try{
+                //      }
+                //      catch(err){
+                //            console.log(err)
+                //      }
+                //   navigation.navigate("Home");
+                //   Alert.alert("Payment Status:", statusResponse.data.status)
+                // } else if (statusResponse.data.status == "failure") {
+                //   // Payment failed, navigate to the failure screen
+                //   clearInterval(intervalId); // Stop the interval
+                //   try{
 
-                      const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionFailure", {
+                //       const updateRes = await axios.post("https://cureofine.com/api/api/updatePaymentTransactionFailure", {
                         
-                      phone: userInfo,
-                      transaction_id: tId,
-                      user_id: userId,
-                      booking_id:bookingId,
-                      opd_transaction_id: tId,
-                      opd_payment_status: 0,
-                      payment_status:0
+                //       phone: userInfo,
+                //       transaction_id: tId,
+                //       user_id: userId,
+                //       booking_id:bookingId,
+                //       opd_transaction_id: tId,
+                //       opd_payment_status: 0,
+                //       payment_status:0
                         
-                      });
+                //       });
 
-                      console.log(updateRes.data.message)
+                //       console.log(updateRes.data.message)
                         
-                     }
-                     catch(err){
-                           console.log(err)
-                     }
-                  navigation.navigate("Home");
-                  Alert.alert("Payment Status:", statusResponse.data.status)
-                }
+                //      }
+                //      catch(err){
+                //            console.log(err)
+                //      }
+                //   navigation.navigate("Home");
+                //   Alert.alert("Payment Status:", statusResponse.data.status)
+                // }
               } catch (error) {
                 console.error("Error checking payment status:", error);
               }
@@ -173,20 +183,9 @@ const TreatmentScreen = ({navigation}) => {
       }
     };
     
-
-  
- 
-
-
-
-
-
-
-
-  
   
     return (
-      <SafeAreaView style={{ backgroundColor: "white", paddingBottom: 50 }}>
+      <SafeAreaView style={{ backgroundColor: "white",flex:1 }}>
         <Header navigation={navigation}></Header>
   
         <ScrollView style={{ backgroundColor: "white" }}>
@@ -406,9 +405,9 @@ Pay for OPD
     </View> 
   ))
   :
-  <View style={{height:450, alignItems:"center",justifyContent:"center"}}>
-               <Text  allowFontScaling={false}>No Booking</Text>
-            </View>
+  <View style={{height:600, alignItems:"center",paddingTop:50}}>
+  <Text>No Booking</Text>
+</View>
 }
 
 
@@ -419,7 +418,7 @@ Pay for OPD
 
      
   
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
         </ScrollView>
       </SafeAreaView>
     );

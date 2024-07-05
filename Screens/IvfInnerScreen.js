@@ -194,10 +194,10 @@ const IvfInnerScreen = ({ navigation }) => {
 
                                         {/* Actions */}
                                         <Card.Actions style={{ marginTop: 10, marginRight: 30 }}>
-                                            <Button mode="contained" theme={{ colors: { primary: '#f08080' } }} onPress={() => !userInfo ? navigation.navigate("Login") : navigation.navigate("BookingScreen", { id: item.ser_id, name: item.name, price: item.opd, cat_id: route.params.id, cat_name: route.params.name, display_price: item.display_price, book_type: "IVF", opd_price: item.opd })}>
+                                            <Button mode="contained" theme={{ colors: { primary: '#f08080' } }} onPress={() => !userInfo ? navigation.navigate("Login") : navigation.navigate("BookingScreen", { id: item.ser_id, name: item.name, price: item.opd, cat_id: route.params.id, cat_name: route.params.name, display_price: item.display_price, book_type: "ivf", opd_price: item.opd })}>
                                                 <Text allowFontScaling={false} style={{ color: "white" }}>Book OPD</Text>
                                             </Button>
-                                            <Button mode="contained" theme={{ colors: { primary: '#f08080' } }} onPress={() => !userInfo ? navigation.navigate("Login") : navigation.navigate("EmiScreen", { id: item.ser_id, name: item.name, price: item.opd, cat_id: route.params.id, cat_name: route.params.name, display_price: item.display_price, book_type: "IVF", opd_price: item.opd })}>
+                                            <Button mode="contained" theme={{ colors: { primary: '#f08080' } }} onPress={() => !userInfo ? navigation.navigate("Login") : navigation.navigate("EmiScreen", { id: item.ser_id, name: item.name, price: item.opd, cat_id: route.params.id, cat_name: route.params.name, display_price: item.display_price, book_type: "ivf", opd_price: item.opd })}>
                                                 <Text allowFontScaling={false} style={{ color: "white" }}>EMI</Text>
                                             </Button>
                                         </Card.Actions>

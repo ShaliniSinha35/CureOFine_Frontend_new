@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -106,12 +107,13 @@ const ContactScreen = ({ navigation }) => {
                     <TextInput
                       autoFocus={true}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="Enter your FullName"
+                      placeholder="Enter your fullname"
+                        placeholderTextColor="#fff"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -139,12 +141,13 @@ const ContactScreen = ({ navigation }) => {
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="Enter your Email"
+                      placeholder="Enter your email"
+                        placeholderTextColor="#fff"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -178,12 +181,13 @@ const ContactScreen = ({ navigation }) => {
                     keyboardType="numeric"
                       autoFocus={true}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="Enter your Phone Number"
+                      placeholder="Enter your number"
+                        placeholderTextColor="#fff"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -212,12 +216,15 @@ const ContactScreen = ({ navigation }) => {
                     <TextInput
                       autoFocus={true}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
-                      placeholder="Subject"
+
+
+                      placeholder=" Enter subject"
+                        placeholderTextColor="#fff"
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
@@ -240,19 +247,33 @@ const ContactScreen = ({ navigation }) => {
             <View style={styles.inputCont}>
               <Text>Message*</Text>
 
-              <View style={styles.inputBoxCont}>
+              <View style={{
+        flexDirection: "row",
+        backgroundColor: "#103042",
+        width: Dimensions.get('screen').width * 0.9,
+        borderRadius: 5,
+        marginTop: 5,
+        marginBottom: 2,
+        paddingLeft: 10,
+    }}>
                 <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      autoFocus={true}
-                      editable
-                      multiline
-                      numberOfLines={5}
-                      placeholder="Enter your Message"
-                      onBlur={onBlur}
-                      onChangeText={(value) => onChange(value)}
-                      value={value}
+                    editable
+                    multiline 
+                    numberOfLines={4}
+                    style={{
+                      color: "#fff",
+                      marginVertical: 10,
+                      width: 300,
+                      fontSize: 16,
+                    }}
+                    onBlur={onBlur}
+                    onChangeText={(value) => onChange(value)}
+                    value={value}
+                    placeholder="Enter your message"
+                    placeholderTextColor="#fff"
                     />
                   )}
                   name="message"
@@ -331,7 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
-    backgroundColor: "#D0D0D0",
+    backgroundColor: "#103042",
     paddingVertical: 5,
     borderRadius: 5,
     marginTop: 5,

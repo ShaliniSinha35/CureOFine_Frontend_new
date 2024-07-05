@@ -183,7 +183,7 @@ const ProfileScreen = ({ navigation }) => {
                                    <TextInput  allowFontScaling={false}
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -213,7 +213,7 @@ const ProfileScreen = ({ navigation }) => {
                                    <TextInput  allowFontScaling={false}
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -242,7 +242,7 @@ const ProfileScreen = ({ navigation }) => {
                                    <TextInput  allowFontScaling={false}
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -271,7 +271,7 @@ const ProfileScreen = ({ navigation }) => {
                                    <TextInput  allowFontScaling={false}
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -292,14 +292,14 @@ const ProfileScreen = ({ navigation }) => {
 
                 </View>
                 <View style={styles.inputCont}>
-                       <Text  allowFontScaling={false} >your Email</Text>
+                       <Text  allowFontScaling={false} >Email</Text>
                     <View style={styles.inputBoxCont}>
                         <Controller
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
                                    <TextInput  allowFontScaling={false}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -330,7 +330,7 @@ const ProfileScreen = ({ navigation }) => {
                                     keyboardType="numeric"
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -358,7 +358,7 @@ const ProfileScreen = ({ navigation }) => {
                                     keyboardType="numeric"
                                     autoFocus={true}
                                     style={{
-                                        color: "gray",
+                                        color: "white",
                                         marginVertical: 5,
                                         width: 300,
                                         fontSize: 16,
@@ -381,7 +381,7 @@ const ProfileScreen = ({ navigation }) => {
 
                 <View style={styles.inputCont}>
                        <Text  allowFontScaling={false} >Gender</Text>
-                    <Select style={{ backgroundColor: "#D0D0D0" }} selectedValue={editableGender} minWidth="200" accessibilityLabel="Select Gender" placeholder="Select Gender" _selectedItem={{
+                    <Select style={{ backgroundColor: "#103042",color:"white",fontSize:18 }} selectedValue={editableGender} minWidth="200" accessibilityLabel="Select Gender" placeholder="Select Gender" _selectedItem={{
                         bg: "#D0D0D0"
                         // endIcon: <CheckIcon size="5"/>
                     }} mt={1} onValueChange={(itemValue) => 
@@ -397,39 +397,7 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
 
 
-                {/* <View style={styles.inputCont}>
-                       <Text  allowFontScaling={false} >Profile Image</Text>
-
-                    <View style={styles.inputBoxCont}>
-                        {photo && <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} />}
-                        <Button title="choose File" color="#103042" onPress={pickImage} />
-
-                    </View>
-
-                </View> */}
-
-
-
-                {/* <View style={{ marginTop: 20 }}>
-                       <Text  allowFontScaling={false}>DOB</Text>
-                    <TouchableOpacity style={styles.inputBoxCont} onPress={()=>setShowPicker(!showDatepicker)} >
-                        <Controller
-                            control={control}
-                            name='date-input'
-                            render={({ field }) => (
-                              showDatepicker && <DateTimePicker
-                                testID="dateTimePicker"
-                                value={date}
-                                mode="date"
-                                is24Hour={true}
-                                display="default"
-                                onChange={onChange}
-                              />  
-                            )}
-                        />
-                    </TouchableOpacity>
-
-                </View> */}
+          
 
 
 
@@ -487,7 +455,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
-    backgroundColor: "#D0D0D0",
+    backgroundColor: "#103042",
     paddingVertical: 5,
     borderRadius: 5,
     marginTop: 5,
@@ -496,7 +464,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 350,
-    backgroundColor: "#103042",
+    backgroundColor: "#f08080",
     borderRadius: 6,
     marginLeft: "auto",
     marginRight: "auto",

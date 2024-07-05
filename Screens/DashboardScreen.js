@@ -200,7 +200,7 @@ data={dashboards}
         justifyContent: "space-between",
       }}
 renderItem={({ item, index }) => (
-<TouchableOpacity style={{margin:10,width:170,alignItems:"center",margin:10,padding:10,elevation:3,borderRadius:5}}>
+<View style={{margin:10,width:170,alignItems:"center",margin:10,padding:10,elevation:3,borderRadius:5}}>
 
 <View style={{width:"100%", alignItems:"center"}}>
 <Image style={{width:100,height:100}} source={item.img}/>
@@ -243,7 +243,7 @@ renderItem={({ item, index }) => (
 
 
 
-</TouchableOpacity>
+</View>
 )}
   />
 

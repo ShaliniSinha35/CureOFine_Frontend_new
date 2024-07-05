@@ -7,11 +7,11 @@ const BookingAlert = ({ isVisible, onClose, onConfirm }) => {
   return (
     <Modal isVisible={isVisible} onBackdropPress={onClose}>
       <View style={styles.modalContainer}>
-        <Text style={styles.title}>Success</Text>
-        <Text style={styles.message}>Thank your for booking</Text>
-        <Text style={styles.message}>We will get back to you soon!</Text>
+        <Text allowFontScaling={false}  style={styles.title}>Success</Text>
+        <Text allowFontScaling={false}  style={styles.message}>Thank your for booking</Text>
+        <Text allowFontScaling={false}  style={styles.message}>We will get back to you soon!</Text>
         <TouchableOpacity style={styles.button} onPress={onConfirm}>
-          <Text style={styles.buttonText}>Check booking update</Text>
+          <Text allowFontScaling={false}  style={styles.buttonText}>Check booking update</Text>
         </TouchableOpacity>
       </View>
     </Modal>

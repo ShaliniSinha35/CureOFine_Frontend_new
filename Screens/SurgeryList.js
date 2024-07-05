@@ -100,7 +100,8 @@ const SurgeryList = ({ navigation }) => {
                             <ActivityIndicator color={"#f08080"} size={"large"} />
                         </View> :
 
-     surgeryList!= "" &&      <FlatList   
+     surgeryList!= "" &&  
+         <FlatList   
 data={surgeryList}
 // horizontal
 // showsHorizontalScrollIndicator={false}
@@ -108,29 +109,32 @@ data={surgeryList}
       scrollEnabled={false}
       columnWrapperStyle={{
         flex: 1,
-        justifyContent: "space-between",
+        justifyContent: "space-around",
       }}
+      
 renderItem={({ item, index }) => (
-<View style={{margin:10,width:170,alignItems:"center",margin:10,padding:10,elevation:3,borderRadius:5}}>
+<View style={{width:170,alignItems:"center",padding:10,elevation:3,borderRadius:5}}>
 
 <View style={{width:"100%", alignItems:"center"}}>
-<Image style={{width:100,height:100}} source={{ uri: `https://cureofine.com/upload/surgerycat/${item.image}` }} />
-
+<Image style={{width:100,height:100,resizeMode:"contain"}} source={{ uri: `https://cureofine.com/upload/surgerycat/${item.image}` }} />
 </View>
 
-<Text  allowFontScaling={false} style={{textAlign:"center",fontSize:17,marginTop:5}} variant="titleLarge">{item.name}</Text>
+<Text  allowFontScaling={false} style={{textAlign:"center",fontSize:17,marginTop:5}} variant="titleLarge">{decode(item.name)}</Text>
 
 
   
                <TouchableOpacity
                     style={{
-                      backgroundColor: "#f08080",
-                      paddingVertical: 5,
+                      backgroundColor: "#103042",
+                        borderWidth:2,
+                      borderColor:"#f08080",
+                      paddingVertical: 7,
                       width: 100,
                       justifyContent: "center",
                       alignItems: "center",
                       marginTop: 10,
                       borderRadius: 4,
+                    
                     }} 
                     // onPress={()=>handlePress(item)}
                     onPress={()=> navigation.navigate("SurgeryInner", {id:item.cat_id,name:item.name}) }  

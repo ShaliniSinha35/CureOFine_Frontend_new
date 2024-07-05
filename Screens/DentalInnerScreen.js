@@ -201,7 +201,7 @@ const DentalInnerScreen = ({ navigation }) => {
                                                               cat_id: route.params.id,
                                                               cat_name: route.params.name,
                                                               display_price: item.display_price,
-                                                              book_type: "Dental",
+                                                              book_type: "dental",
                                                               opd_price: item.opd
                                                           })
                                                 }
@@ -221,7 +221,7 @@ const DentalInnerScreen = ({ navigation }) => {
                                                               cat_id: route.params.id,
                                                               cat_name: route.params.name,
                                                               display_price: item.display_price,
-                                                              book_type: "Dental",
+                                                              book_type: "dental",
                                                               opd_price: item.opd
                                                           })
                                                 }

@@ -85,22 +85,24 @@ data={ivfList}
       scrollEnabled={false}
       columnWrapperStyle={{
         flex: 1,
-        justifyContent: "space-between",
+        justifyContent: "space-around",
       }}
 renderItem={({ item, index }) => (
-<TouchableOpacity style={{margin:10,width:170,alignItems:"center",margin:10,padding:15,elevation:3,borderRadius:5}}>
+<View style={{margin:10,width:170,alignItems:"center",margin:10,padding:15,elevation:3,borderRadius:5}}>
 
 <View style={{width:"100%", alignItems:"center"}}>
-<Image style={{width:100,height:100}} source={{ uri: `https://cureofine.com/upload/ivfcat/${item.image}` }} />
+<Image style={{width:100,height:100,resizeMode:"contain"}} source={{ uri: `https://cureofine.com/upload/ivfcat/${item.image}` }} />
 </View>
 
-<Text  allowFontScaling={false} style={{textAlign:"center",fontSize:17,marginTop:5}} variant="titleLarge">{item.name}</Text>
+<Text  allowFontScaling={false} style={{textAlign:"center",fontSize:17,marginTop:5}} variant="titleLarge">{decode(item.name)}</Text>
 
 
   
                <TouchableOpacity
                     style={{
-                      backgroundColor: "#f08080",
+                      backgroundColor: "#103042",
+                      borderWidth:2,
+                    borderColor:"#f08080",
                       paddingVertical: 5,
                       width: 100,
                       justifyContent: "center",
@@ -125,7 +127,7 @@ renderItem={({ item, index }) => (
 
 
 
-</TouchableOpacity>
+</View>
 )}
   />
 

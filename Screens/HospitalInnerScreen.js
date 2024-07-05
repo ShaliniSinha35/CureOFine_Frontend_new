@@ -33,10 +33,9 @@ const HospitalInnerScreen = ({ navigation }) => {
 
     const route = useRoute();
 
-    // console.log(route.params.id)
+  
 
     const [hospital, setHospital] = useState('')
-    
     const [facilities, setFacilities] = useState('')
     const [location, setLocation] = useState('')
     const [hospitalImageArr,setHospitalImageArr]= useState('')
@@ -45,10 +44,12 @@ const HospitalInnerScreen = ({ navigation }) => {
 
         const res = await axios.get("https://cureofine.com/api/api/hospitals")
         const data = res.data
-        let newArr = await data.filter((item) => { return item.hos_id == route.params.id })
-        // console.log(newArr)
 
-        for(let i=0;i<newArr.length;i++){
+
+        let newArr = await data.filter((item) => { return item.hos_id == route.params.id })
+       
+      if(newArr[0].image!="["){
+ for(let i=0;i<newArr.length;i++){
             const imgArr = JSON.parse(newArr[i].image)
             // console.log("53",imgArr)
 
@@ -59,6 +60,9 @@ const HospitalInnerScreen = ({ navigation }) => {
             
             
           }
+      }
+
+       
         setHospital(newArr)
       
  
@@ -106,8 +110,7 @@ const HospitalInnerScreen = ({ navigation }) => {
                 :
                 <ScrollView>
 
-                    <Text
-                        style={{
+                    <Text allowFontScaling={false}   style={{
                             height: 1,
                             borderColor: "whitesmoke",
                             borderWidth: 2,

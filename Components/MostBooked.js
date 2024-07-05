@@ -107,7 +107,7 @@ const tagsStyles = {
             }
           >
             <Image
-              style={{ width: 100, height: 120, resizeMode: "contain" }}
+              style={{ width: 100, height: 100, resizeMode: "contain" }}
               source={{
                 uri:`https://cureofine.com/upload/service/${item.image}`}}
             />

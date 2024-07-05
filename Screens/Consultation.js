@@ -77,6 +77,7 @@ const Consultation = ({ navigation }) => {
   const getDoctorList = async () => {
     const res = await axios.get("https://cureofine.com/api/api/doctorsList")
     const data = res.data;
+    console.log(data)
     setDoctorList(data)
   }
 
@@ -198,21 +199,28 @@ borderRadius: 5,
 
     <Card key={item.id} style={{ margin: 10, backgroundColor: "white" }} >
 
-      <View style={{ flexDirection: "row", width: "100%", alignItems: "center" }}>
+      <View style={{ flexDirection: "row", width: "100%" }}>
         <Image source={{ uri: `https://cureofine.com/upload/profile/${item.profile_img}` }} style={{ height: 120, width: 108, resizeMode: "cover" }} />
 
-        <View style={{ marginLeft: 8, flexWrap: "wrap" }}>
+        <View style={{ marginLeft: 8}}>
 
           <Card.Content>
-            <Text  allowFontScaling={false}style={{ fontSize: 12 }}>{item.name}</Text>
+            <Text  allowFontScaling={false}style={{ fontSize: 12,marginTop:8 }}>{item.name}</Text>
             {/* <Text  allowFontScaling={false}variant="bodyMedium" style={{ color: "gray", fontSize: 12 }}>Original Price- Rs {item.price}</Text>
                                       <Text  allowFontScaling={false}variant="bodyMedium" style={{ fontWeight: "bold", fontSize: 12 }}>Offer Price- Rs {item.offer_price}</Text> */}
-            <Text  allowFontScaling={false}variant="bodyMedium">Description: </Text>
+            <Text  allowFontScaling={false} style={{marginTop:5}} variant="bodyMedium">Description: </Text>
+{/* 
             <View style={{ textAlign: "center", width: 230, height: 80 }}>
+
+
               {item.details != "" && <RenderHTML tagsStyles={tagsStyles} key={item.id} source={{ html: decode(item.details) }}></RenderHTML>}
 
-            </View>
+            </View> */}
 
+            
+<View style={{ width:180 }}>
+<Text allowFontScaling={false} numberOfLines={15} style={{ fontWeight: 200, fontSize: 10,marginBottom:5,textAlign:"justify" }}>{decode(item.details)}</Text>
+</View>
 
           </Card.Content>
 
@@ -225,16 +233,16 @@ borderRadius: 5,
 
       <Card.Actions style={{ marginTop: 10 }}>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Voice Consultation",price:item.voice_fee,cat_id:item.doctor_id,cat_name:"Voice Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10, justifyContent: "space-between" }}><Feather name="phone-call" size={18} color="white" />  On Call</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Voice Consultation",price:item.voice_fee,cat_id:item.doctor_id,cat_name:"Voice Consultation",book_type:"voice"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10, justifyContent: "space-between" }}><Feather name="phone-call" size={18} color="white" />  On Call</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.voice_fee}/-</Text>
         </View>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id ,name:"Video Consultation",price:item.video_fee,cat_id:item.doctor_id,cat_name:"Video Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Feather name="video" size={18} color="white" /> Video Call</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id ,name:"Video Consultation",price:item.video_fee,cat_id:item.doctor_id,cat_name:"Video Consultation",book_type:"video"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Feather name="video" size={18} color="white" />  Video Call</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.video_fee}/-</Text>
 
         </View>
         <View>
-          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Chat Consultation",price:item.chat_fee,cat_id:item.doctor_id,cat_name:"Chat Consultation",book_type:"Consultation"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color="white" />  On Chat</Text></Button>
+          <Button mode="contained" theme={{ colors: { primary: '#f46b78' } }} onPress={() =>!userInfo?navigation.navigate("Login"):navigation.navigate("BookingScreen", { id: item.doctor_id,name:"Chat Consultation",price:item.chat_fee,cat_id:item.doctor_id,cat_name:"Chat Consultation",book_type:"chat"})}><Text  allowFontScaling={false}style={{ color: "white", fontSize: 10 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color="white" />  On Chat</Text></Button>
           <Text  allowFontScaling={false}style={{ textAlign: "center", marginTop: 10, fontSize: 16 }}> <FontAwesome name="rupee" size={20} color="#103042" />  {item.chat_fee}/-</Text>
 
         </View>

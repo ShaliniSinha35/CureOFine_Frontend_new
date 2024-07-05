@@ -30,7 +30,10 @@ const OfferBanner = () => {
         getImage();
 
     }, []);
-
+    
+    const handleImagePress = (item) => {
+        // Alert.alert(`Image with ID: ${item.id} pressed!`);
+    };
 
     return (
 
@@ -46,6 +49,7 @@ const OfferBanner = () => {
             data={bannerImage}
             height={180}
             indicator={false}
+            onPress={(item) => handleImagePress(item)}
             
         
             // indicatorActiveColor={'#f46b78'}

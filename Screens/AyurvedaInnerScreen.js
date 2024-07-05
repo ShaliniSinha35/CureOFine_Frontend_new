@@ -7,7 +7,8 @@ import {
     TextInput,
     ImageBackground,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
@@ -90,7 +91,7 @@ const AyurvedaInnerScreen = ({ navigation }) => {
                   
                         <Text  allowFontScaling={false}style={{ color: "#103042", paddingLeft: 12, fontSize: 18 }}>Ayurveda</Text>
 
-                                <ImageBackground
+                                <Image
                                     style={{ width, height:300, marginTop: 25, resizeMode: "contain",margin:2 }}
                                     source={{ uri: `https://cureofine.com/upload/ayurveda/${ayurveda[0].image}` }}
                                
@@ -98,7 +99,7 @@ const AyurvedaInnerScreen = ({ navigation }) => {
 
 
 
-                                </ImageBackground>
+                                </Image>
 
                 
 
@@ -150,8 +151,9 @@ const AyurvedaInnerScreen = ({ navigation }) => {
 
                                 <View style={{ padding: 8 }}>
                                     <Text
+                                    allowFontScaling={false}
                                         style={{
-                                            fontSize: 15,
+                                            fontSize: 18,
                                             fontWeight: "bold",
                                             marginVertical: 5,
                                             textAlign: "center",
@@ -174,9 +176,9 @@ const AyurvedaInnerScreen = ({ navigation }) => {
                                     marginHorizontal: 15,
                                     marginVertical: 0,
                                 }}
-                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("BookingScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"Ayurveda"})}
+                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("BookingScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"ayurveda"})}
                             >
-                                <Text>Book Now</Text>
+                                <Text style={{color:"white"}}>Book Now</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{
@@ -189,9 +191,9 @@ const AyurvedaInnerScreen = ({ navigation }) => {
                                     marginVertical: 0,
                                     marginTop:10
                                 }}
-                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("EmiScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"Ayurveda"})}
+                                onPress={() =>!userInfo? navigation.navigate("Login") : navigation.navigate("EmiScreen",{id:ayurveda[0].ayu_id,name:ayurveda[0].name,price:ayurveda[0].offer_price,cat_id:ayurveda[0].ayu_id, cat_name:ayurveda[0].name,book_type:"ayurveda"})}
                             >
-                                <Text>EMI</Text>
+                                <Text style={{color:"white"}}>EMI</Text>
                             </TouchableOpacity>
 
 

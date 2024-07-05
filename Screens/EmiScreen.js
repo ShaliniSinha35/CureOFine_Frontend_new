@@ -9,7 +9,8 @@ import {
     TextInput,
     Alert,
     ScrollView,
-    Button                                               
+    Button,
+    Dimensions                                               
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -193,15 +194,8 @@ const submitData = async(data,uploadedImages)=>{
 
     return (
         <SafeAreaView style={{ backgroundColor: "white", paddingBottom: 50 }}>
-            <Header navigation={navigation}></Header>
-            <Text
-                style={{
-                    height: 1,
-                    borderColor: "whitesmoke",
-                    borderWidth: 2,
-                    marginTop: 15,
-                }}
-            />
+            <Header navigation={navigation} />
+            <Text style={{ height: 1, borderColor: "whitesmoke", borderWidth: 2, marginTop: 15 }} />
             <ScrollView>
                 <View style={styles.safeArea}>
                     <KeyboardAvoidingView>
@@ -219,31 +213,22 @@ const submitData = async(data,uploadedImages)=>{
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
                                             autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
+                                            // onFocus={() => { setFocusField("fullname") }}
                                         />
                                     )}
                                     name="fullname"
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: "This field is required!",
-                                        },
-                                    }}
+                                    rules={{ required: { value: true, message: "This field is required!" } }}
                                 />
                             </View>
                             {errors.fullname && (
                                 <Text allowFontScaling={false} style={{ color: "red" }}>{errors.fullname.message}</Text>
                             )}
                         </View>
+
                         <View style={{ marginTop: 20 }}>
                             <Text>Guardian/Attendant*</Text>
                             <View style={styles.inputBoxCont}>
@@ -251,33 +236,21 @@ const submitData = async(data,uploadedImages)=>{
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
+                                            // onFocus={() => { setFocusField("guardian") }}
                                         />
                                     )}
                                     name="guardian"
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: "This field is required!",
-                                        },
-                                    }}
+                                    rules={{ required: { value: true, message: "This field is required!" } }}
                                 />
                             </View>
                             {errors.guardian && (
                                 <Text allowFontScaling={false} style={{ color: "red" }}>{errors.guardian.message}</Text>
                             )}
                         </View>
-
 
                         <View style={styles.inputCont}>
                             <Text>Email Id*</Text>
@@ -286,23 +259,16 @@ const submitData = async(data,uploadedImages)=>{
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
                                         />
                                     )}
                                     name="email"
                                     rules={{
                                         required: {
-                                            value: true,
-                                            message: "Email is required!",
+                                          
                                             pattern: {
                                                 value: EMAIL_REGEX,
                                                 message: "Not a valid email",
@@ -324,79 +290,78 @@ const submitData = async(data,uploadedImages)=>{
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
                                             keyboardType="numeric"
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-                                            // placeholder="enter your Phone Number"
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
-                                            value={userInfo}
+                                            onChangeText={onChange}
+                                            // defaultValue={userInfo}
+                                            value={value}
+                                            // onFocus={() => { setFocusField("phone") }}
                                         />
                                     )}
                                     name="phone"
-
-                                />
-                            </View>
-
-                        </View>
-
-
-                        <View style={{ marginTop: 20 }}>
-                            <Text>Service Name</Text>
-                            <View style={styles.inputBoxCont}>
-
-
-
-                                <TextInput
-                                    autoFocus={true}
-                                    style={{
-                                        color: "gray",
-                                        marginVertical: 5,
-                                        width: 300,
-                                        fontSize: 16,
-                                    }}
-
-
-                                    value={route.params.name}
-                                />
-                            </View>
-
-                        </View>
-
-                        <View style={styles.inputCont}>
-                            <Text>Address</Text>
-
-                            <View style={styles.inputBoxCont}>
-                                <Controller
-                                    control={control}
-                                    render={({ field: { onChange, onBlur, value } }) => (
-                                        <TextInput
-                                            autoFocus={true}
-                                            editable
-                                            multiline
-                                            numberOfLines={4}
-                                            onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
-                                            value={value}
-                                        />
-                                    )}
-                                    name="address"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "This field is required!",
+                                            message: "Mobile number is required!",
+                                        },
+                                        pattern: {
+                                            value: /^[0-9]{10}$/,
+                                            message: "Not a valid mobile number",
                                         },
                                     }}
                                 />
                             </View>
-                            {errors.message && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.message.message}</Text>
-                            )}
                         </View>
+
+                        <View style={{ marginTop: 20 }}>
+                            <Text>Service Name</Text>
+                            <View style={styles.inputBoxCont}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={route.params.name}
+                                    editable={false}
+
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.inputCont}>
+    <Text style={{ fontWeight: 500, fontSize: 16 }}>Address</Text>
+    <View style={{
+        flexDirection: "row",
+        backgroundColor: "#103042",
+        width: Dimensions.get('screen').width * 0.9,
+        borderRadius: 5,
+        marginTop: 5,
+        marginBottom: 2,
+        paddingLeft: 10,
+    }}>
+        <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                    multiline  // Enable multiline input
+                    numberOfLines={4}  // Set initial number of lines visible
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                />
+            )}
+            name="address"
+            rules={{
+                required: {
+                    value: true,
+                    message: "This field is required!",
+                },
+            }}
+        />
+    </View>
+    {errors.address && (
+        <Text allowFontScaling={false} style={{ color: "red" }}>
+            {errors.address.message}
+        </Text>
+    )}
+</View>
 
                         <View style={styles.inputCont}>
                             <Text>Age</Text>
@@ -406,26 +371,15 @@ const submitData = async(data,uploadedImages)=>{
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
                                             keyboardType="numeric"
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
+                                        
                                         />
                                     )}
                                     name="age"
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: "Enter your age",
-                                        },
-                                    }}
+                                    rules={{ required: { value: true, message: "Enter your age" } }}
                                 />
                             </View>
                             {errors.age && (
@@ -435,41 +389,48 @@ const submitData = async(data,uploadedImages)=>{
 
                         <View style={styles.inputCont}>
                             <Text>Gender</Text>
-                            <Select style={{ backgroundColor: "#D0D0D0" }} selectedValue={gender} minWidth="200" accessibilityLabel="Select Gender" placeholder="Select Gender" _selectedItem={{
-                                bg: "#D0D0D0"
-                                // endIcon: <CheckIcon size="5"/>
-                            }} mt={1} onValueChange={itemValue => setGender(itemValue)}>
+                            <Select
+                                style={{ backgroundColor: "#103042",color:"#fff" }}
+                                selectedValue={gender}
+                                minWidth="200"
+                                accessibilityLabel="Select Gender"
+                                placeholder="Select Gender"
+                                placeholderTextColor="#fff"
+                                _selectedItem={{ bg: "#D0D0D0" }}
+                                mt={1}
+                                onValueChange={itemValue => setGender(itemValue)}
+                            >
                                 <Select.Item label="Male" value="male" />
                                 <Select.Item label="Female" value="female" />
-
                             </Select>
                         </View>
 
-
                         <View style={styles.inputCont}>
                             <Text>Reason for EMI Application</Text>
-
-                            <View style={styles.inputBoxCont}>
+                            <View  style={{
+        flexDirection: "row",
+        backgroundColor: "#103042",
+        width: Dimensions.get('screen').width * 0.9,
+        borderRadius: 5,
+        marginTop: 5,
+        marginBottom: 2,
+        paddingLeft: 10,
+    }}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            autoFocus={true}
-                                            editable
-                                            multiline
-                                            numberOfLines={4}
-                                            onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
-                                            value={value}
+                                        multiline 
+                    numberOfLines={4}  
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                                        
                                         />
                                     )}
                                     name="reason"
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: "This field is required!",
-                                        },
-                                    }}
+                                    rules={{ required: { value: true, message: "This field is required!" } }}
                                 />
                             </View>
                             {errors.reason && (
@@ -478,114 +439,69 @@ const submitData = async(data,uploadedImages)=>{
                         </View>
 
                         <View style={styles.inputCont}>
-                            <Text>Surgery Cost</Text>
+                            <Text>Service Cost</Text>
                             <View style={styles.inputBoxCont}>
                                 <TextInput
                                     keyboardType="numeric"
-                                    autoFocus={true}
-                                    style={{
-                                        color: "gray",
-                                        marginVertical: 5,
-                                        width: 300,
-                                        fontSize: 16,
-                                    }}
+                                    style={styles.input}
                                     value={`Rs ${route.params.price}`}
+                                    editable={false}
                                 />
-
                             </View>
-
                         </View>
+
                         <View style={styles.inputCont}>
                             <Text>Amount Required</Text>
-
                             <View style={styles.inputBoxCont}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            autoFocus={true}
-                                            keyboardType="numeric"
+                                        
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
                                         />
                                     )}
                                     name="amount"
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: "This field is required!",
-                                        },
-                                    }}
+                                    rules={{ required: { value: true, message: "This field is required!" } }}
                                 />
                             </View>
                             {errors.amount && (
                                 <Text allowFontScaling={false} style={{ color: "red" }}>{errors.amount.message}</Text>
                             )}
                         </View>
+
                         <View style={styles.inputCont}>
                             <Text>Upload Photo</Text>
-
                             <View style={styles.inputBoxCont}>
                                 {photo && <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} />}
-                                <Button title="choose File" color="#103042" onPress={pickImage} />
-
+                                <Button title="Choose File" color="#103042" onPress={pickImage} />
                             </View>
-
                         </View>
-
-
 
                         <View style={styles.inputCont}>
-                            <Text>Upload aadhar</Text>
-
+                            <Text>Upload Aadhar</Text>
                             <View style={styles.inputBoxCont}>
                                 {aadhar && <Image source={{ uri: aadhar }} style={{ width: 200, height: 200 }} />}
-                                <Button title="choose File" color="#103042" onPress={pickAadhar} />
-
+                                <Button title="Choose File" color="#103042" onPress={pickAadhar} />
                             </View>
-
                         </View>
 
-
-                        <View style={{ marginTop: 30 }} />
-
-
-
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={handleSubmit(onSubmit)}
-                        // onPress={showToast}
-
-                        >
-                            <Text
-                                style={{
-                                    textAlign: "center",
-                                    color: "white",
-                                    fontSize: 16,
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                Submit
-                            </Text>
+                        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+                            <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
 
-                        <Toast
-                            position='bottom'
-                            bottomOffset={80}
-                        />
-
+                        <Toast position='bottom' bottomOffset={80} />
                     </KeyboardAvoidingView>
-
                 </View>
 
-
-                <Contact></Contact>
-                <Footer></Footer>
+                <Contact />
+                <Footer />
             </ScrollView>
         </SafeAreaView>
     );
-
 };
 
 const styles = StyleSheet.create({
@@ -595,37 +511,39 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 15,
     },
-    img: {
-        width: 200,
-        height: 120,
-        resizeMode: "contain",
-    },
-    heading: {
-        fontSize: 17,
-        fontWeight: "bold",
-        marginTop: 10,
-        color: "#041E42",
+    input: {
+        color: "white",
+        marginVertical: 5,
+        width: 300,
+        fontSize: 16,
     },
     inputBoxCont: {
         flexDirection: "row",
         alignItems: "center",
         gap: 7,
-        backgroundColor: "#D0D0D0",
+        backgroundColor: "#103042",
+        width:Dimensions.get('screen').width * 0.9,
         paddingVertical: 5,
         borderRadius: 5,
         marginTop: 5,
         marginBottom: 2,
         paddingLeft: 10,
     },
-
     button: {
         width: 350,
-        backgroundColor: "#103042",
+        backgroundColor: "#f08080",
         borderRadius: 6,
         marginLeft: "auto",
         marginRight: "auto",
         padding: 15,
         marginBottom: 20,
+        marginTop:30
+    },
+    buttonText: {
+        textAlign: "center",
+        color: "white",
+        fontSize: 16,
+        fontWeight: "bold",
     },
     inputCont: {
         marginTop: 10,
@@ -633,6 +551,7 @@ const styles = StyleSheet.create({
 });
 
 export default EmiScreen;
+
 
 
 // i want to pass the photo and aadhar image to backend and store this on backend upload folder when user submit the form

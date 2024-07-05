@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -97,7 +98,7 @@ const EnquiryScreen = ({ navigation }) => {
                 <FontAwesome5
                   name="phone-alt"
                   size={24}
-                  color="gray"
+                  color="#f08080"
                   style={{ marginLeft: 8 }}
                 />
 
@@ -111,12 +112,13 @@ const EnquiryScreen = ({ navigation }) => {
                       onChangeText={(value) => onChange(value)}
                       value={value}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
                       placeholder="Enter your Phone Number"
+                      placeholderTextColor="white"
                     />
                   )}
                   name="phone"
@@ -136,7 +138,7 @@ const EnquiryScreen = ({ navigation }) => {
 
             <View style={{ marginTop: 8 }}>
               <View style={styles.inputBoxCont}>
-              <FontAwesome name="user" size={24} color="gray"   style={{ marginLeft: 8 }} />
+              <FontAwesome name="user" size={24} color="#f08080"   style={{ marginLeft: 8 }} />
 
                 <Controller
                   control={control}
@@ -147,12 +149,13 @@ const EnquiryScreen = ({ navigation }) => {
                       onChangeText={(value) => onChange(value)}
                       value={value}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
                       placeholder="Enter your FullName"
+                      placeholderTextColor="white"
                     />
                   )}
                   name="fullname"
@@ -177,7 +180,7 @@ const EnquiryScreen = ({ navigation }) => {
                   style={{ marginLeft: 8 }}
                   name="email"
                   size={24}
-                  color="gray"
+                  color="#f08080"
                 />
 
                 <Controller
@@ -189,12 +192,13 @@ const EnquiryScreen = ({ navigation }) => {
                       onChangeText={(value) => onChange(value)}
                       value={value}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
                       placeholder="Enter your Email"
+                      placeholderTextColor="white"
                     />
                   )}
                   name="email"
@@ -219,7 +223,7 @@ const EnquiryScreen = ({ navigation }) => {
                 <MaterialIcons
                   name="location-city"
                   size={24}
-                  color="gray"
+                  color="#f08080"
                   style={{ marginLeft: 8 }}
                 />
 
@@ -232,12 +236,13 @@ const EnquiryScreen = ({ navigation }) => {
                       onChangeText={(value) => onChange(value)}
                       value={value}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
                       placeholder="Enter your City"
+                      placeholderTextColor="white"
                     />
                   )}
                   name="city"
@@ -255,11 +260,20 @@ const EnquiryScreen = ({ navigation }) => {
             </View>
 
             <View>
-              <View style={styles.inputBoxCont}>
+              <View  style={{
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 7,
+        backgroundColor: "#103042",
+        paddingVertical: 5,
+        borderRadius: 5,
+        marginTop: 18,
+        width: Dimensions.get('screen').width * 0.9,
+    }}>
                 <Ionicons
                   name="location-sharp"
                   size={24}
-                  color="gray"
+                  color="#f08080"
                   style={{ marginLeft: 8 }}
                 />
 
@@ -267,17 +281,19 @@ const EnquiryScreen = ({ navigation }) => {
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
+                    multiline 
                       autoFocus={true}
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
                       style={{
-                        color: "gray",
+                        color: "#fff",
                         marginVertical: 10,
                         width: 300,
                         fontSize: 16,
                       }}
                       placeholder="Enter your Address"
+                      placeholderTextColor="white"
                     />
                   )}
                   name="address"
@@ -298,11 +314,20 @@ const EnquiryScreen = ({ navigation }) => {
             </View>
 
             <View>
-              <View style={styles.inputBoxCont}>
+              <View  style={{
+       flexDirection: "row",
+       alignItems: "center",
+       gap: 7,
+       backgroundColor: "#103042",
+       paddingVertical: 5,
+       borderRadius: 5,
+       marginTop: 18,
+       width: Dimensions.get('screen').width * 0.9,
+    }}>
                 <Entypo
                   name="message"
                   size={24}
-                  color="gray"
+                  color="#f08080"
                   style={{ marginLeft: 8 }}
                 />
 
@@ -310,14 +335,20 @@ const EnquiryScreen = ({ navigation }) => {
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      autoFocus={true}
+                    multiline 
+                      numberOfLines={4}
+                      style={{
+                        color: "#fff",
+                        marginVertical: 10,
+                        width: 300,
+                        fontSize: 16,
+                      }}
                       onBlur={onBlur}
                       onChangeText={(value) => onChange(value)}
                       value={value}
-                      editable
-                      multiline
-                      numberOfLines={5}
                       placeholder="Enter your Message"
+                      placeholderTextColor="white"
+                      
                     />
                   )}
                   name="message"
@@ -393,7 +424,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
-    backgroundColor: "#D0D0D0",
+    backgroundColor: "#103042",
     paddingVertical: 5,
     borderRadius: 5,
     marginTop: 18,

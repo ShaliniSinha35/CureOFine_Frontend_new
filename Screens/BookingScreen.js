@@ -9,7 +9,8 @@ import {
     TextInput,
     Alert,
     ScrollView,
-    Linking
+    Linking,
+    Dimensions
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -27,7 +28,7 @@ import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { WebView } from 'react-native-webview';
-import moment from 'moment'; 
+import moment from 'moment-timezone';
 import BookingAlert from "../Components/BookingAlert";
 const BookingScreen = ({ navigation }) => {
     const [paymentResult, setPaymentResult] = useState(null);
@@ -37,18 +38,14 @@ const BookingScreen = ({ navigation }) => {
     const [service, setService] = useState(route.params.name);
     const [price, setPrice] = useState(route.params.display_price)
     const [gender, setGender] = React.useState("");
-const [emi, setEmi] = useState("")
+    const [emi, setEmi] = useState("")
     const [date, setDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
-
     const [time, setTime] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
-
     const [visible,setVisible]= useState(false)
-
     const userId = useSelector(state => state.user.userInfo ?state.user.userInfo.id:null);
-
-const [flag,setFlag] = useState(false)
+    const [flag,setFlag] = useState(false)
    
     const showTimepicker = () => {
         setShowTimePicker(!showTimePicker);
@@ -62,6 +59,9 @@ const [flag,setFlag] = useState(false)
         }
     };
 
+    const formatDateToIST = (utcDate) => {
+        return moment.utc(utcDate).tz('Asia/Kolkata').format('hh:mm A');
+    };
 
     const goToHome = async ()=>{
         if(!route.params.name){
@@ -77,8 +77,6 @@ const [flag,setFlag] = useState(false)
         setShowDatePicker(!showDatePicker);
     };
 
-
-
     const onDateChange = (event, selectedDate) => {
  
         if (selectedDate) {
@@ -88,8 +86,6 @@ const [flag,setFlag] = useState(false)
         } 
     };
     
-  
-
     const {
         register,
         setValue,
@@ -110,8 +106,8 @@ const [flag,setFlag] = useState(false)
 
 
   
-        if (route.params.book_type === "Consultation" || route.params.book_type === "Ayurveda") {
-            console.log("route.params.book_type == Consultation or Ayurveda", route.params.book_type);
+        if (route.params.book_type === "ayurveda") {
+            console.log("route.params.book_type ==  Ayurveda", route.params.book_type);
     
             try {
                 const res = await axios.post("https://cureofine.com/api/api/bookSurgeryForConsultation", {
@@ -123,7 +119,7 @@ const [flag,setFlag] = useState(false)
                     address: data.address,
                     mobile: userInfo,
                     email: data.email,
-                    service_name: route.params.name,
+                  service_name: route.params.name,
                     service_date: newDate,
                     service_time: newTime,
                     amount: route.params.price,
@@ -136,6 +132,7 @@ const [flag,setFlag] = useState(false)
                 if (res.status === 200 && res.data.message === "Insertion successful") {
                     reset();
                     setGender("");
+                    const booking_id= res.data.booking_id
     
                     try {
                         const paymentResponse = await axios.post('https://cureofine.com/api/api/api/payment', {
@@ -158,52 +155,57 @@ const [flag,setFlag] = useState(false)
                                 console.log(mId);
     
                                 const res1 = await Linking.openURL(paymentResponse.data.result);
-    
+                          
+                                 navigation.navigate("Home")
                                 const intervalId = setInterval(async () => {
                                     try {
-                                        const statusResponse = await axios.post(`https://cureofine.com/api/api/status/${tId}`);
+                                        const statusResponse = await axios.post(`https://cureofine.com/api/api/api/status/${tId}`);
     
                                         console.log("Payment Status:", statusResponse.data);
     
-                                        if (statusResponse.data.status === "success") {
-                                            clearInterval(intervalId);
+                                //         // if (statusResponse.data.status === "success") {
+                                //         //     clearInterval(intervalId);
     
-                                            try {
-                                                const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionSuccess", {
-                                                    phone: userInfo,
-                                                    transaction_id: tId,
-                                                    service_name: route.params.name,
-                                                    user_id: userId
-                                                });
+                                //         //     try {
+                                //         //         const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionSuccess", {
+                                //         //             phone: userInfo,
+                                //         //             transaction_id: tId,
+                                //         //             service_name: route.params.name,
+                                //         //             user_id: userId,
+                                //         //             booking_id:booking_id
+                                //         //         });
     
-                                                console.log(updateRes.data.message);
-                                            } catch (err) {
-                                                console.log(err);
-                                            }
+                                //         //         console.log(updateRes.data.message);
+                                //         //     } catch (err) {
+                                //         //         console.log(err);
+                                //         //     }
     
-                                            navigation.navigate("Home");
-                                        } else if (statusResponse.data.status === "failure") {
-                                            clearInterval(intervalId);
+                                //         //     navigation.navigate("Home");
+                                //         // } else if (statusResponse.data.status === "failure") {
+                                //         //     clearInterval(intervalId);
     
-                                            try {
-                                                const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionFailure", {
-                                                    phone: userInfo,
-                                                    transaction_id: tId,
-                                                    service_name: route.params.name,
-                                                    user_id: userId
-                                                });
+                                //         //     try {
+                                //         //         const updateRes = await axios.post("https://cureofine.com/api/api/updateTransactionFailure", {
+                                //         //             phone: userInfo,
+                                //         //             transaction_id: tId,
+                                //         //             service_name: route.params.name,
+                                //         //             user_id: userId,
+                                //         //             booking_id:booking_id
+                                //         //         });
     
-                                                console.log(updateRes.data.message);
-                                            } catch (err) {
-                                                console.log(err);
-                                            }
+                                //         //         console.log(updateRes.data.message);
+                                //         //     } catch (err) {
+                                //         //         console.log(err);
+                                //         //     }
     
-                                            navigation.navigate("Home");
-                                        }
+                                //         //     navigation.navigate("Home");
+                                //         // }
                                     } catch (error) {
                                         console.error("Error checking payment status:", error);
                                     }
                                 }, 5000);
+
+
                             }
                         }
                     } catch (error) {
@@ -214,8 +216,120 @@ const [flag,setFlag] = useState(false)
             } catch (error) {
                 console.error("Network error:", error.message);
             }
-        } else {
-            console.log("route.params.book_type !== Consultation or Ayurveda", route.params.book_type);
+        }
+        
+        else if (route.params.book_type === "voice" || route.params.book_type === "video" || route.params.book_type === "chat") {
+            console.log("route.params.book_type == Consultation", route.params.book_type);
+    
+            try {
+
+                console.log(userId)
+                const res = await axios.post("https://cureofine.com/api/api/consultationBooking", {
+                    pid: userId,
+                    did: route.params.cat_id,
+                    name: data.fullname,
+                    gender: gender,
+                    age: data.age,
+                    address: data.address,
+                    mobile: userInfo,
+                    email: data.email,
+                    service_date: newDate,
+                    service_time: newTime,
+                    amount: route.params.price,
+                    book_type: route.params.book_type,
+                    tax: 0,
+                });
+    
+                console.log(route.params.book_type);
+    
+                if (res.status === 200 && res.data.message === "Insertion successful") {
+                    reset();
+                    setGender("");
+                    const booking_id= res.data.booking_id
+    
+                    try {
+                        const paymentResponse = await axios.post('https://cureofine.com/api/api/api/payment', {
+                            transactionId: transactionId,
+                            MUID: MUID,
+                            name: data.fullname,
+                            mobile: userInfo,
+                            amount: route.params.price
+                        });
+    
+                        console.log("paymentResponse", paymentResponse);
+    
+                        if (paymentResponse.status === 200) {
+                            console.log("119", paymentResponse.data.message);
+                            if (paymentResponse.data.result) {
+                                setPaymentResult(paymentResponse.data.result);
+                                const tId = paymentResponse.data.transactionId;
+                                const mId = paymentResponse.data.merchantId;
+                                console.log(tId);
+                                console.log(mId);
+    
+                                const res1 = await Linking.openURL(paymentResponse.data.result);
+                                navigation.navigate("Home");
+    
+                                // const intervalId = setInterval(async () => {
+                                //     try {
+                                //         const statusResponse = await axios.post(`https://cureofine.com/api/api/api/status/${tId}`);
+    
+                                //         console.log("Payment Status:", statusResponse.data);
+    
+                                //         // if (statusResponse.data.status === "success") {
+                                //         //     clearInterval(intervalId);
+    
+                                //         //     try {
+                                //         //         const updateRes = await axios.post("https://cureofine.com/api/api/updateConsultationTransactionSuccess", {
+                                //         //             phone: userInfo,
+                                //         //             transaction_id: tId,
+                                //         //             service_name: route.params.name,
+                                //         //             user_id: userId,
+                                //         //             booking_id:booking_id
+                                //         //         });
+    
+                                //         //         console.log(updateRes.data.message);
+                                //         //     } catch (err) {
+                                //         //         console.log(err);
+                                //         //     }
+    
+                                //         //     navigation.navigate("Home");
+                                //         // } else if (statusResponse.data.status === "failure") {
+                                //         //     clearInterval(intervalId);
+    
+                                //         //     try {
+                                //         //         const updateRes = await axios.post("https://cureofine.com/api/api/updateConsultationTransactionFailure", {
+                                //         //             phone: userInfo,
+                                //         //             transaction_id: tId,
+                                //         //             service_name: route.params.name,
+                                //         //             user_id: userId,
+                                //         //             booking_id:booking_id
+                                //         //         });
+    
+                                //         //         console.log(updateRes.data.message);
+                                //         //     } catch (err) {
+                                //         //         console.log(err);
+                                //         //     }
+    
+                                //         //     navigation.navigate("Home");
+                                //         // }
+                                //     } catch (error) {
+                                //         console.error("Error checking payment status:", error);
+                                //     }
+                                // }, 5000);
+                            }
+                        }
+
+                    } catch (error) {
+                        Alert.alert("Payment API network error");
+                        console.error("Payment API network error:", error.message);
+                    }
+                }
+            } catch (error) {
+                console.error("Network error:", error.message);
+            }
+        } 
+        else {
     
             try {
                 const res = await axios.post("https://cureofine.com/api/api/bookSurgery", {
@@ -254,14 +368,6 @@ const [flag,setFlag] = useState(false)
    
 
 }
-
-
-
-
-
-        
- 
-
     // const handleRedirect = async (event) => {
     //     const { url } = event;
     //     console.log(url)
@@ -284,10 +390,6 @@ const [flag,setFlag] = useState(false)
     //       }
     //     }
     //   };
-
-
-  
-
 
     const showToast = () => {
         Toast.show({
@@ -316,16 +418,8 @@ const [flag,setFlag] = useState(false)
           };
     return (
         <SafeAreaView style={{ backgroundColor: "white", paddingBottom: 50 }}>
-            <Header navigation={navigation}></Header>
-           
-            <Text
-                style={{
-                    height: 1,
-                    borderColor: "whitesmoke",
-                    borderWidth: 2,
-                    marginTop: 15,
-                }}
-            ></Text>
+            <Header navigation={navigation} />
+            <Text style={styles.separator} />
             <ScrollView>
                 <View style={styles.safeArea}>
                     <KeyboardAvoidingView>
@@ -334,24 +428,16 @@ const [flag,setFlag] = useState(false)
                                 Book Now
                             </Text>
                         </View>
-
                         <View style={{ marginTop: 20 }}>
-                            <Text>Patient FullName*</Text>
+                            <Text style={{fontWeight:500,fontSize:16}}>Patient FullName*</Text>
                             <View style={styles.inputBoxCont}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
                                         />
                                     )}
@@ -365,36 +451,30 @@ const [flag,setFlag] = useState(false)
                                 />
                             </View>
                             {errors.fullname && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.fullname.message}</Text>
+                                <Text allowFontScaling={false} style={{ color: "red" }}>
+                                    {errors.fullname.message}
+                                </Text>
                             )}
                         </View>
-
                         <View style={styles.inputCont}>
-                            <Text>Email Id*</Text>
+                            <Text style={{fontWeight:500,fontSize:16}}>Email Id</Text>
                             <View style={styles.inputBoxCont}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
                                         />
                                     )}
                                     name="email"
                                     rules={{
                                         required: {
-                                            value: true,
-                                            message: "Email is required!",
+                                          
                                             pattern: {
-                                                value: EMAIL_REGEX,
+                                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                                 message: "Not a valid email",
                                             },
                                         },
@@ -402,134 +482,115 @@ const [flag,setFlag] = useState(false)
                                 />
                             </View>
                             {errors.email && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.email.message}</Text>
+                                <Text allowFontScaling={false} style={{ color: "red" }}>
+                                    {errors.email.message}
+                                </Text>
                             )}
                         </View>
-
                         <View style={styles.inputCont}>
-                            <Text>Mobile Number*</Text>
+                            <Text style={{fontWeight:500,fontSize:16}}>Mobile Number*</Text>
                             <View style={styles.inputBoxCont}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
                                             keyboardType="numeric"
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-                                            // placeholder="enter your Phone Number"
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
-                                            value={userInfo}
+                                            onChangeText={onChange}
+                                            // defaultValue={userInfo}
+                                            value={value}
+                                            editable={true}
                                         />
                                     )}
                                     name="phone"
-
-                                />
-                            </View>
-                            {errors.phone && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.phone.message}</Text>
-                            )}
-                        </View>
-
-                        <View style={{ marginTop: 20 }}>
-                            <Text>Service Name</Text>
-                            <View style={styles.inputBoxCont}>
-
-                                <TextInput
-                                    autoFocus={true}
-                                    style={{
-                                        color: "gray",
-                                        marginVertical: 5,
-                                        width: 300,
-                                        fontSize: 16,
-                                    }}
-
-
-
-                                    value={route.params.name}
-                                />
-
-
-
-                            </View>
-
-                        </View>
-
-                        {/* {console.log(route.params.price)} */}
-
-                        <View style={styles.inputCont}>
-                            <Text>Surgery Cost</Text>
-                            <View style={styles.inputBoxCont}>
-                                <TextInput
-                                    autoFocus={true}
-
-                                    style={{
-                                        color: "gray",
-                                        marginVertical: 5,
-                                        width: 300,
-                                        fontSize: 16,
-                                    }}
-                                    value={`Rs ${route.params.price}`}
-                                />
-
-                            </View>
-
-                        </View>
-
-                        <View style={styles.inputCont}>
-                            <Text>Address</Text>
-
-                            <View style={styles.inputBoxCont}>
-                                <Controller
-                                    control={control}
-                                    render={({ field: { onChange, onBlur, value } }) => (
-                                        <TextInput
-                                            autoFocus={true}
-
-                                            multiline
-                                            numberOfLines={4}
-                                            // onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
-                                            value={value}
-                                        />
-                                    )}
-                                    name="address"
                                     rules={{
                                         required: {
                                             value: true,
-                                            message: "This field is required!",
+                                            message: "Mobile number is required!",
+                                        },
+                                        pattern: {
+                                            value: /^[0-9]{10}$/,
+                                            message: "Not a valid mobile number",
                                         },
                                     }}
                                 />
                             </View>
-                            {errors.message && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.message.message}</Text>
+                            {errors.phone && (
+                                <Text allowFontScaling={false} style={{ color: "red" }}>
+                                    {errors.phone.message}
+                                </Text>
                             )}
                         </View>
-
+                        <View style={{ marginTop: 20 }}>
+                            <Text style={{fontWeight:500,fontSize:16}}>Service Name</Text>
+                            <View style={styles.inputBoxCont}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={route.params.name}
+                                    editable={false}
+                                />
+                            </View>
+                        </View>
                         <View style={styles.inputCont}>
-                            <Text>Age</Text>
+                            <Text style={{fontWeight:500,fontSize:16}}>Service Cost</Text>
+                            <View style={styles.inputBoxCont}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={`Rs ${route.params.price}`}
+                                    editable={false}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.inputCont}>
+    <Text style={{ fontWeight: 500, fontSize: 16 }}>Address</Text>
+    <View style={{
+        flexDirection: "row",
+        backgroundColor: "#103042",
+        width: Dimensions.get('screen').width * 0.9,
+        borderRadius: 5,
+        marginTop: 5,
+        marginBottom: 2,
+        paddingLeft: 10,
+    }}>
+        <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                    multiline  // Enable multiline input
+                    numberOfLines={4}  // Set initial number of lines visible
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                />
+            )}
+            name="address"
+            rules={{
+                required: {
+                    value: true,
+                    message: "This field is required!",
+                },
+            }}
+        />
+    </View>
+    {errors.address && (
+        <Text allowFontScaling={false} style={{ color: "red" }}>
+            {errors.address.message}
+        </Text>
+    )}
+</View>
+                        <View style={styles.inputCont}>
+                            <Text style={{fontWeight:500,fontSize:16}}>Age</Text>
                             <View style={styles.inputBoxCont}>
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
                                             keyboardType="numeric"
-                                            autoFocus={true}
-                                            style={{
-                                                color: "gray",
-                                                marginVertical: 5,
-                                                width: 300,
-                                                fontSize: 16,
-                                            }}
-
+                                            style={styles.input}
                                             onBlur={onBlur}
-                                            onChangeText={(value) => onChange(value)}
+                                            onChangeText={onChange}
                                             value={value}
                                         />
                                     )}
@@ -543,49 +604,52 @@ const [flag,setFlag] = useState(false)
                                 />
                             </View>
                             {errors.age && (
-                                <Text allowFontScaling={false} style={{ color: "red" }}>{errors.age.message}</Text>
+                                <Text allowFontScaling={false} style={{ color: "red" }}>
+                                    {errors.age.message}
+                                </Text>
                             )}
                         </View>
-
                         <View style={styles.inputCont}>
-                            <Text>Gender</Text>
-                            <Select style={{ backgroundColor: "#D0D0D0" }} selectedValue={gender} minWidth="200" accessibilityLabel="Select Gender" placeholder="Select Gender" _selectedItem={{
-                                bg: "#D0D0D0"
-                                // endIcon: <CheckIcon size="5"/>
-                            }} mt={1} onValueChange={itemValue => setGender(itemValue)}>
+                            <Text style={{fontWeight:500,fontSize:16}}>Gender</Text>
+                            <Select
+                                style={{ backgroundColor: "#103042",color:"#fff",fontSize:16 }}
+                                selectedValue={gender}
+                                minWidth="200"
+                                accessibilityLabel="Select Gender"
+                                placeholder="Select Gender"
+                                placeholderTextColor="#fff"
+                                _selectedItem={{ bg: "#D0D0D0" }}
+                                mt={1}
+                                onValueChange={itemValue => setGender(itemValue)}
+                            >
                                 <Select.Item label="Male" value="male" />
                                 <Select.Item label="Female" value="female" />
                                 <Select.Item label="Others" value="others" />
-
                             </Select>
                         </View>
-
                         <View style={styles.inputCont}>
-                            <Text>Schedule Date</Text>
-                            <View style={[styles.inputBoxCont, { padding: 20 }]}>
-
-                                <Text style={{ margin: 10 }}><EvilIcons name="calendar" size={24} color="black" onPress={() => showDatepicker()} /></Text>
-
+                            <Text style={{fontWeight:500,fontSize:16}}>Schedule Date</Text>
+                            <Pressable style={[styles.inputBoxCont, { padding: 20 }]} onPress={showDatepicker}>
+                                <Text style={{ margin: 10 }}>
+                                    <EvilIcons name="calendar" size={24} color="#f08080" onPress={showDatepicker} />
+                                </Text>
                                 {showDatePicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="default"
-              onChange={onDateChange}
-            />
-          )}
-                         <Text>{moment(date).format('YYYY-MM-DD')}</Text>
-
-                            </View>
-
+                                    <DateTimePicker
+                                        value={date}
+                                        mode="date"
+                                        display="default"
+                                        onChange={onDateChange}
+                                    />
+                                )}
+                                <Text style={{color:"#fff",fontSize:16}}>{moment(date).format('YYYY-MM-DD')}</Text>
+                            </Pressable>
                         </View>
-
-
                         <View style={styles.inputCont}>
-                            <Text>Schedule Time</Text>
-                            <View style={[styles.inputBoxCont, { padding: 20 }]}>
-
-                                <Text style={{ margin: 10 }}><EvilIcons name="clock" size={24} color="black" onPress={() => showTimepicker()} /></Text>
+                            <Text style={{fontWeight:500,fontSize:16}}>Schedule Time</Text>
+                            <Pressable style={[styles.inputBoxCont, { padding: 20 }]} onPress={showTimepicker}>
+                                <Text style={{ margin: 10 }}>
+                                    <EvilIcons name="clock" size={25} color="#f08080" onPress={showTimepicker} />
+                                </Text>
                                 {showTimePicker && (
                                     <DateTimePicker
                                         value={time}
@@ -595,38 +659,32 @@ const [flag,setFlag] = useState(false)
                                         onChange={handleTimeChange}
                                     />
                                 )}
- <Text>{moment(time).format('HH:mm')}</Text>
-
-                            </View>
-
+                                <Text style={{color:"#fff",fontSize:16}}>{formatDateToIST(time)}</Text>
+                            </Pressable>
                         </View>
-
-
-{route.params.book_type != "Consultation"  ?
-
-<View style={styles.inputCont}>
-<Text>Need EMI for treatment*</Text>
-<Select style={{ backgroundColor: "#D0D0D0" }} selectedValue={emi} minWidth="200" accessibilityLabel="Select" placeholder="Select" _selectedItem={{
-    bg: "#D0D0D0"
-    // endIcon: <CheckIcon size="5"/>
-}} mt={1} onValueChange={itemValue => setEmi(itemValue)}>
-    <Select.Item label="YES" value="yes" />
-    <Select.Item label="NO" value="no" />
-  
-
-</Select>
-</View>
-: null
-}
-                      
-
+                        {route.params.book_type !== "voice" && route.params.book_type !== "video" && route.params.book_type !== "chat" && (
+                            <View style={styles.inputCont}>
+                                <Text style={{fontWeight:500,fontSize:16}}>Need EMI for treatment*</Text>
+                                <Select
+                                    style={{ backgroundColor: "#103042",color:"#fff",fontSize:16 }}
+                                    selectedValue={emi}
+                                    minWidth="200"
+                                    accessibilityLabel="Select"
+                                    placeholder="Select"
+                                    placeholderTextColor="#fff"
+                                    _selectedItem={{ bg: "#fff",color:"#fff" }}
+                                    mt={1}
+                                    onValueChange={itemValue => setEmi(itemValue)}
+                                >
+                                    <Select.Item label="YES" value="yes" />
+                                    <Select.Item label="NO" value="no" />
+                                </Select>
+                            </View>
+                        )}
                         <View style={{ marginTop: 30 }} />
-
                         <TouchableOpacity
                             style={styles.button}
                             onPress={handleSubmit(onSubmit)}
-                        // onPress={showToast}
-
                         >
                             <Text
                                 style={{
@@ -639,35 +697,19 @@ const [flag,setFlag] = useState(false)
                                 Submit
                             </Text>
                         </TouchableOpacity>
-
-                        <Toast
-                            position='bottom'
-                            bottomOffset={80}
-                        />
-
+                        <Toast position='bottom' bottomOffset={80} />
                     </KeyboardAvoidingView>
-
                 </View>
-
-
-
                 <BookingAlert
-        isVisible={visible}
-        onClose={() => setVisible(false)}
-        onConfirm={()=>{
-          navigation.navigate("DashboardScreen")
-        }}
-      />     
-       
-
-
-                <Contact></Contact>
-
-
-                <Footer></Footer>
+                    isVisible={visible}
+                    onClose={() => setVisible(false)}
+                    onConfirm={() => {
+                        navigation.navigate("DashboardScreen");
+                    }}
+                />
+                <Contact />
+                <Footer />
             </ScrollView>
-
-
         </SafeAreaView>
     );
 };
@@ -679,29 +721,30 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 15,
     },
-    img: {
-        width: 200,
-        height: 120,
-        resizeMode: "contain",
-    },
-    heading: {
-        fontSize: 17,
-        fontWeight: "bold",
-        marginTop: 10,
-        color: "#041E42",
+    separator: {
+        height: 1,
+        borderColor: "whitesmoke",
+        borderWidth: 2,
+        marginTop: 15,
     },
     inputBoxCont: {
         flexDirection: "row",
         alignItems: "center",
         gap: 7,
-        backgroundColor: "#D0D0D0",
+        backgroundColor: "#103042",
+        width:Dimensions.get('screen').width * 0.9,
         paddingVertical: 5,
         borderRadius: 5,
         marginTop: 5,
         marginBottom: 2,
         paddingLeft: 10,
     },
-
+    input: {
+        color: "#fff",
+        marginVertical: 5,
+        width: 300,
+        fontSize: 16,
+    },
     button: {
         width: 350,
         backgroundColor: "#f08080",

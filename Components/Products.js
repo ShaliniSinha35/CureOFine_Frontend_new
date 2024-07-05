@@ -143,7 +143,7 @@ const Products = ({navigation}) => {
                 // })}
                 >
                   <Image
-                    style={{ width: 150, height: 150, resizeMode: "contain" }}
+                    style={{ width: 120, height: 120, resizeMode: "contain" }}
                     source={{ uri: `https://cureofine.com/upload/ivfcat/${product1.image}` }} 
                   />
                   <View>
@@ -230,7 +230,7 @@ const Products = ({navigation}) => {
                 
                 >
                   <Image
-                    style={{ width: 150, height: 150, resizeMode: "contain" }}
+                    style={{ width: 120, height: 120, resizeMode: "contain" }}
                     source={{ uri: `https://cureofine.com/upload/haircat/${product3.image}` }}
                   />
                   <View>
@@ -319,7 +319,7 @@ const Products = ({navigation}) => {
                 
                 >
                   <Image
-                    style={{ width: 150, height: 150, resizeMode: "contain" }}
+                    style={{ width: 120, height: 120, resizeMode: "contain" }}
                     source={{ uri: `https://cureofine.com/upload/dentalcat/${product2.image}` }}
                   />
                   <View>
@@ -407,7 +407,7 @@ const Products = ({navigation}) => {
 
                 >
                   <Image
-                    style={{ width: 150, height: 150, resizeMode: "contain" }}
+                    style={{ width: 120, height: 120, resizeMode: "contain" }}
                     source={{ uri: `https://cureofine.com/upload/ayurveda/${product4.image}` }} 
                   />
                   <View>
